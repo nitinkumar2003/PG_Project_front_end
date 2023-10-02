@@ -1,0 +1,36 @@
+
+  
+  .select-control {
+    /* border: 1px solid #ccc; */
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  
+  .select-menu {
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+  }
+  
+  .select-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: #fff;
+    height: 400px;
+    
+  }
+  
+  .select-option.is-selected {
+    background-color: #f5f5f5;
+  }
+  
+  .select-option:hover {
+    background-color: #f5f5f5;
+  }
+  .css-13cymwt-control{
+      height: 2.7rem;
+  }
+  .select-control .css-13cymwt-control{
+   border-radius: 5px;
+  }
+  
