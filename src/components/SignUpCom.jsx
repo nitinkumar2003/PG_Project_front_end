@@ -10,6 +10,9 @@ const SignUpCom = () => {
     const handleLoginIn = () => {
         customDispatch(actionOfLoginForm[1])
     }
+    const handleSignUp=()=>{
+        alert('hiii')
+    }
     return (
         <>
             <div className="w-full sm:ml-4 sm:text-left">
@@ -24,7 +27,7 @@ const SignUpCom = () => {
                             <a href="#" className="text-indigo-600 text-sm hover:underline">Forgot Password?</a>
                         </div>
                         <div className='flex justify-center'>
-                        <ButtonCom label={'SignUp'} />
+                        <ButtonCom label={'SignUp'} handleBtnClick={handleSignUp} />
                         </div>
                         <div className="flex justify-center">
                             <a href="#" className="text-indigo-600 text-sm">

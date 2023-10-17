@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { $Api_Url } from "../../network/Url";
-import { $InvokeApi } from "../../network/Services";
+// import { $InvokeApi } from "../../network/Services";
 
 const initialState = {
   isLoginSignUpForm: false,
@@ -12,16 +11,11 @@ const initialState = {
 
 console.log('initialStateinitialState',initialState)
 
-
-
-
-
-
-
-export const signUpASync = createAsyncThunk('api/fetchData', async (json) => {
-    const response = await $InvokeApi($Api_Url.userRegistration_Url, 'POST', json, null);
-    return response;
+export const signUpAsync = createAsyncThunk('user/createUser', async (userInfo) => {
+  const response = await postRequest(userInfo);
+  return response;
 });
+
 
 
 export const loginSlice = createSlice({
@@ -46,17 +40,10 @@ export const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signUpASync.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(signUpASync.fulfilled, (state, action) => {
+      .addCase(signUpAsync.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(signUpASync.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
   },
 });
 
