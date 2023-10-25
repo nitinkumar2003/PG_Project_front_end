@@ -1,21 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // import { $InvokeApi } from "../../network/Services";
+import $Services from "../../network/Services";
 
 const initialState = {
   isLoginSignUpForm: false,
   isLoginForm: true,
   isSignUpForm: false,
   status: 'idle' ,
-  loading:false
+  loading:false,
+  data:''
 };
+console.log('initialState',initialState)
 
-console.log('initialStateinitialState',initialState)
-
-export const signUpAsync = createAsyncThunk('user/createUser', async (userInfo) => {
-  const response = await postRequest(userInfo);
-  return response;
+export const signUpAsync = createAsyncThunk('user/SignUp', async (userInfo) => {
+  try {
+      let response = await $Services.userSignUp(userInfo);
+      console.log('response',response)
+      return response;
+  } catch (err) {
+      console.log('Error',err.response.data)
+      return err.response.data
+  }
 });
-
 
 
 export const loginSlice = createSlice({
@@ -35,7 +41,7 @@ export const loginSlice = createSlice({
             state.isLoginForm = false;
             state.isSignUpForm = true;
         }
-   
+  
     },
   },
   extraReducers: (builder) => {

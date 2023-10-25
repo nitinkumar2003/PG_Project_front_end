@@ -1,46 +1,35 @@
 import axios from "axios";
 import { $Api_Url } from "./Url";
+import { json } from "react-router-dom";
 
 axios.defaults.baseURL = 'http://localhost:4001/';
 
 
-
-const invokeApi = (url, method, body, cancel) => {
-  if (cancel) {
-    cancel();
-  }
+const invokeApi = async (method, url, data = null) => {
   try {
-    let token = sessionStorage.getItem("AuthToken");
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return axios({
-      cancelToken: new axios.CancelToken(function executor(c) {
-        cancel = c;
-      }),
-
-      method: method,
-      url: url,
-      params: (method === "GET") ? body : null,
-      data: method === "POST" || method === "PUT" || method === "DELETE" ? body : null,
-    });
-
+    const response = await axios({ method, url, data,});
+    return response.data;
+  } catch (error) {
+    console.log('Error:',error)
+    throw error;
   }
-  catch (error) {
-    if (axios.isCancel(error)) {
-      konsole.error('Request canceled', error.message);
-      throw error;
-    } else {
-      throw error;
-      konsole.error('Something went wrong: ', error.message)
-    }
-  }
-}
+};
+
+
 
 const $Services={
-
+  
   userSignUp:async(jsonObj)=>{
-    let cancel;
     let url=$Api_Url.userRegistration_Url
-    return invokeApi(url,'POST',jsonObj,cancel)
+    return invokeApi('POST',url,jsonObj)
+  },
+  sentOtp:async(jsonObj)=>{
+    let url=$Api_Url.postOtp_Url
+    return invokeApi('POST',url,jsonObj)
+  },
+  verifyOtp:async(jsonObj)=>{
+    let url=$Api_Url.veriyfyOtp_Url
+    return invokeApi('POST',url,jsonObj)
   }
 }
 

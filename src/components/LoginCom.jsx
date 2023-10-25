@@ -4,14 +4,14 @@ import { InputBox } from './InputComponent'
 import { useLoginFormStatus, useCustomDispatch } from '../hooks/useLoginFormStatus'
 import { actionOfLoginForm } from '../utilities/utilities'
 
-const LoginCom = () => {
+const LoginCom = ({showToast}) => {
     const customDispatch = useCustomDispatch()
     const handleLoginIn = () => {
         customDispatch(actionOfLoginForm[2])
     }
     return (
         <>
-            <div className="w-full sm:ml-4 sm:text-left">
+            <div id='loginForm' className="w-full sm:ml-4 sm:text-left">
                 <div className="flex justify-center items-center">
                     <form className="bg-white p-8 rounded  w-80">
                         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>

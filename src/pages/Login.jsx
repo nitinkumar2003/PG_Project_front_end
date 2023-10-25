@@ -5,9 +5,10 @@ import { useLoginFormStatus, useCustomDispatch } from '../hooks/useLoginFormStat
 import LoginCom from '../components/LoginCom';
 import { actionOfLoginForm } from '../utilities/utilities';
 import SignUpCom from '../components/SignUpCom';
+import OtpCom from './Otp';
 
 
-export default function Login() {
+export default function Login({showToast}) {
   const [open, setOpen] = useState(true)
 
   const { isLoginForm, isLoginSignUpForm, isSignUpForm } = useLoginFormStatus()
@@ -36,9 +37,10 @@ export default function Login() {
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                   {/*--------------------------------------- Login Form content---------------------------------------------------------------------- */}
-                  {isLoginForm && <LoginCom />}
-                  {isSignUpForm && <SignUpCom />}
-
+                  {isLoginForm && <LoginCom showToast={showToast} />}
+                  {isSignUpForm && <SignUpCom showToast={showToast} />}
+                  {/* {isSignUpForm && <OtpCom email='abab@mailinator.com' />} */}
+                  
                   {/*--------------------------------------- Login Form content---------------------------------------------------------------------- */}
                 </div>
               </div>

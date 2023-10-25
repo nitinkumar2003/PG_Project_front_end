@@ -3,8 +3,8 @@ import { openLoginSignUpForm} from "../features/login/loginSlice";
 
 
 const useLoginFormStatus = () => {
-    const { isLoginSignUpForm, isLoginForm, isSignUpForm } = useSelector(state => state.login);
-    return { isLoginSignUpForm, isLoginForm, isSignUpForm };
+    const { isLoginSignUpForm, isLoginForm, isSignUpForm,data } = useSelector(state => state.login);
+    return { isLoginSignUpForm, isLoginForm, isSignUpForm,data };
 }
 
 const useCustomDispatch = (action) => {

@@ -1,22 +1,19 @@
 import { useDispatch } from "react-redux";
-import { signUpAsync } from "../features/login/loginSlice";
+import { signUpAsync } from "../features/login/loginSlice"; // Add the missing import statement
 
 const useApiCallHook = () => {
     const dispatch = useDispatch()
 
     const callSignUpApi = (arg) => {
-     return dispatch(signUpAsync(arg))
+        console.log('ergwerf',arg)
+        return dispatch(signUpAsync(arg))
     }
 
-    const callLoginApi = (arg) => {
-        // dispatch(loginAsync(arg)).then((res) => {
-        //     console.log('res', res)
-        // }).catch((err) => {
-        //     console.log('err', err)
-        // })
-    }
+    // const callLoginApi = (arg) => {
+    //     return dispatch(loginAsync(arg));
+    // }
 
-    return { callSignUpApi, callLoginApi }
+    return { callSignUpApi }; // Add the return statement
 }
 
 export default useApiCallHook;
