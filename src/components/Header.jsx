@@ -31,7 +31,7 @@ function Header({ children }) {
     setIsMobileMenuOpen(false)
   }
   
-  
+    
   return (
     <>
       <div className="min-h-full">
@@ -46,7 +46,7 @@ function Header({ children }) {
                         {/* <img className="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" /> */}
                         NK
                       </div>
-                    </div>
+                                          </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigationList.map((item) => (
@@ -55,7 +55,7 @@ function Header({ children }) {
                             className={classNames(item.current ? 'underline underline-offset-4 text-blue-500' : 'text-gray-300 hover:text-blue-200', 'rounded-md px-3 py-2 text-sm font-medium cursor-pointer')}
                           >{item.name}</a>
                         ))}
-                        <a href="#" class="text-sm font-semibold leading-6 text-gray-100 hover:text-white" 
+                        <a href="#" className="text-sm font-semibold leading-6 text-gray-100 hover:text-white" 
                         onClick={handleLoginIn}
                         >Log in <span aria-hidden="true">&rarr;</span></a>
                       </div>

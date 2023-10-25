@@ -24,15 +24,24 @@ export const SelectDropdown = ({ options, value, handleSelect, label, id }) => {
     );
 };
 
-export const InputBox = ({ placeholder, allScreen = false }) => {
+export const InputBox = ({handleChange,handleBlur,id, placeholder, allScreen = false,error }) => {
     return <>
-        <div className={`${allScreen ? '' : 'w-1/2'} m-2 `}>
-            <input type="text" id="username" className="w-full border border-gray-300 rounded-md px-3 py-2" placeholder={placeholder} />
+        <div className={`${allScreen ? '' : 'w-1/2'} m-2 relative`}>
+            {/* <input type="text" id="username" className="w-full border-b border-gray-300 rounded-md px-3 py-2" placeholder={placeholder} /> */}
+            <input
+                id={id}
+                className="border-b  w-full border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-900"
+                type="text"
+                placeholder={placeholder}
+                onChange={handleChange}
+                onBlur={handleBlur}
+            />
+            {error && (<div className="text-red-500 text-xs mt-1">{error}</div>)}
         </div>
     </>
 }
 
-export const InputCheckbox = ({ label,idForName, checked, onChange }) => {
+export const InputCheckbox = ({ label, idForName, checked, onChange }) => {
     return (
         <>
             <input type="radio" className="mt-2 mb-1 ms-2 mr-2 h-6 w-6" name={idForName} />
