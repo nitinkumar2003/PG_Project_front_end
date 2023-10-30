@@ -6,13 +6,14 @@ import LoginCom from '../components/LoginCom';
 import { actionOfLoginForm } from '../utilities/utilities';
 import SignUpCom from '../components/SignUpCom';
 import OtpCom from './Otp';
+import ForgotPasswordCom from '../components/ForgotPasswordCom';
 
 
 export default function Login({showToast}) {
   const [open, setOpen] = useState(true)
 
-  const { isLoginForm, isLoginSignUpForm, isSignUpForm } = useLoginFormStatus()
-  console.log('isLoginSignUpForm',isLoginSignUpForm,isLoginForm,isSignUpForm)
+  const { isLoginForm, isLoginSignUpForm, isSignUpForm,isForgotPassword ,isOtpPage } = useLoginFormStatus()
+  console.log('isLoginSignUpForm',isForgotPassword,isLoginSignUpForm,isLoginForm,isSignUpForm)
   const customDispatch = useCustomDispatch()
   const handleLoginIn = (action) => {
     customDispatch(action)
@@ -37,9 +38,11 @@ export default function Login({showToast}) {
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                   {/*--------------------------------------- Login Form content---------------------------------------------------------------------- */}
+                 
                   {isLoginForm && <LoginCom showToast={showToast} />}
                   {isSignUpForm && <SignUpCom showToast={showToast} />}
-                  {/* {isSignUpForm && <OtpCom email='abab@mailinator.com' />} */}
+                  {isForgotPassword && <ForgotPasswordCom showToast={showToast} />}
+                  {isOtpPage && <OtpCom showToast={showToast}/>} 
                   
                   {/*--------------------------------------- Login Form content---------------------------------------------------------------------- */}
                 </div>
