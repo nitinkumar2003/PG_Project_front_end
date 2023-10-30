@@ -20,8 +20,9 @@ const SignUpCom = ({ showToast }) => {
 
     console.log('signUpDetailssignUpDetails', signUpDetails)
 
-    const handleLoginIn = () => {
-        customDispatch(actionOfLoginForm[1])
+
+    const handleUiActions = (action) => {
+        customDispatch(action)
     }
 
     const handleChange = (e) => {
@@ -54,7 +55,6 @@ const SignUpCom = ({ showToast }) => {
         }
         return false
     }
-
     function validateEmail(id, value) {
         switch (id) {
             case 'email':
@@ -83,59 +83,52 @@ const SignUpCom = ({ showToast }) => {
                 showToast('success', 'Account created successsfully.')
                 console.log('Response:', res);
                 if (res?.payload.status == 200) {
-                    setShowOtpScreen(true)
-
+                    const userEmail = res.payload.user.email
+                    handleUiActions({ userEmail: userEmail, action: actionOfLoginForm[4],refrencePage:'SignUp' })
                 }
             })
     };
 
     return (
         <>
-            {(showOtpScreen == false) ?
-                <div id='signUpForm' className="w-full sm:ml-4 sm:text-left">
-                    <div className="flex justify-center items-center">
-                        <form className="bg-white p-8 rounded  w-80">
-                            <h2 className="text-2xl font-bold mb-4 text-center">SignUp</h2>
-                            <InputBox
-                                id='name'
-                                allScreen="true"
-                                placeholder='Enter Your Name'
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                error={signUpDetails.nameErr}
-                            />
-                            <InputBox
-                                id='email'
-                                allScreen="true"
-                                placeholder='Enter Your Email'
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                error={signUpDetails.emailErr}
-                            />
-                            <InputBox
-                                id='password'
-                                placeholder='Enter Your Pasword'
-                                allScreen="true"
-                                handleChange={handleChange}
-                                error={signUpDetails.passwordErr}
-                            />
-
-                            <div className="text-right m-0">
-                                <a href="#" className="text-indigo-600 text-sm hover:underline">Forgot Password?</a>
-                            </div>
-                            <div className='flex justify-center'>
-                                <ButtonCom label={'SignUp'} onClick={handleSignUp} />
-                            </div>
-                            <div className="flex justify-center">
-                                <a href="#" className="text-indigo-600 text-sm">
-                                    Don't have an account? <span onClick={() => handleLoginIn()} className=' hover:underline'> Sign In</span>
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                </div> : <>
-                    <OtpCom email={signUpDetails.email}  showToast={showToast}/>
-                </>}
+            <div id='signUpForm' className="w-full sm:ml-4 sm:text-left">
+                <div className="flex justify-center items-center">
+                    <form className="bg-white p-8 rounded  w-80">
+                        <h2 className="text-2xl font-bold mb-4 text-center">SignUp</h2>
+                        <InputBox
+                            id='name'
+                            allScreen="true"
+                            placeholder='Enter Your Name'
+                            onChange={handleChange}
+                            handleBlur={handleBlur}
+                            error={signUpDetails.nameErr}
+                        />
+                        <InputBox
+                            id='email'
+                            allScreen="true"
+                            placeholder='Enter Your Email'
+                            onChange={handleChange}
+                            handleBlur={handleBlur}
+                            error={signUpDetails.emailErr}
+                        />
+                        <InputBox
+                            id='password'
+                            placeholder='Enter Your Pasword'
+                            allScreen="true"
+                            onChange={handleChange}
+                            error={signUpDetails.passwordErr}
+                        />
+                        <div className='flex justify-center p-2'>
+                            <ButtonCom label={'Sign Up'} onClick={handleSignUp} />
+                        </div>
+                        <div className="flex justify-center">
+                            <a href="#" className="text-indigo-600 text-sm">
+                                Don't have an account? <span onClick={() => handleUiActions(actionOfLoginForm[1])} className=' hover:underline'> Sign In</span>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </>
     )
 }
