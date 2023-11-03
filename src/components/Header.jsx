@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { navigationLink } from '../utilities/utilities';
 import { useNavigate } from 'react-router-dom';
-import { useLoginFormStatus,useCustomDispatch } from '../hooks/useLoginFormStatus';
+import { useLoginFormStatus, useCustomDispatch } from '../hooks/useLoginFormStatus';
 import { actionOfLoginForm } from '../utilities/utilities';
 
 function classNames(...classes) {
@@ -12,26 +12,26 @@ function classNames(...classes) {
 
 function Header({ children }) {
 
-  const {isLoginForm,isLoginSignUpForm,isSignUpForm}=useLoginFormStatus()
-  const customDispatch= useCustomDispatch()
+  const { isLoginForm, isLoginSignUpForm, isSignUpForm } = useLoginFormStatus()
+  const customDispatch = useCustomDispatch()
   const navigate = useNavigate()
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [navigationList, setNavigationList] = useState(navigationLink)
-  console.log('isLoginSignUpForm',isLoginSignUpForm)
-  
-  
+  console.log('isLoginSignUpForm', isLoginSignUpForm)
+
+
   const handleRoute = (name, tonavigate) => {
     setNavigationList(navigationList.map(item => ({ ...item, current: item.name == name })));
     navigate(tonavigate)
     setIsMobileMenuOpen(false)
   }
-  const handleLoginIn=()=>{
+  const handleLoginIn = () => {
     customDispatch(actionOfLoginForm[0])
     setIsMobileMenuOpen(false)
   }
-  
-    
+
+
   return (
     <>
       <div className="min-h-full">
@@ -46,7 +46,7 @@ function Header({ children }) {
                         {/* <img className="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" /> */}
                         NK
                       </div>
-                                          </div>
+                    </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigationList.map((item) => (
@@ -55,8 +55,8 @@ function Header({ children }) {
                             className={classNames(item.current ? 'underline underline-offset-4 text-blue-500' : 'text-gray-300 hover:text-blue-200', 'rounded-md px-3 py-2 text-sm font-medium cursor-pointer')}
                           >{item.name}</a>
                         ))}
-                        <a href="#" className="text-sm font-semibold leading-6 text-gray-100 hover:text-white" 
-                        onClick={handleLoginIn}
+                        <a href="#" className="text-sm font-semibold leading-6 text-gray-100 hover:text-white"
+                          onClick={handleLoginIn}
                         >Log in <span aria-hidden="true">&rarr;</span></a>
                       </div>
                     </div>
@@ -91,9 +91,9 @@ function Header({ children }) {
                           > {item.name} </Disclosure.Button>
                         ))}
                         <a className='block rounded-md px-3 py-2 text-base font-medium cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white'
-                        onClick={handleLoginIn}
+                          onClick={handleLoginIn}
                         >Log in <span aria-hidden="true">&rarr;</span></a>
-                   
+
                       </div>
                     </div>
                   )}

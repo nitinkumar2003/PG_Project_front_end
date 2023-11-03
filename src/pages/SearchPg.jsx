@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
-import { SelectDropdown ,InputBox} from '../components/InputComponent'
-import { homeTypeList, livingTypeList ,sharingTypeList,priceRangeList} from '../utilities/Constant'
+import React, { useEffect, useState } from 'react'
+import { SelectDropdown, InputBox } from '../components/InputComponent'
+import useCustomSelector from '../hooks/useCustomSelector'
+import $Services from '../network/Services';
 
 const SearchPg = () => {
-    const [filterPgInfo,setFilterInfo]=useState({homeType:'',livingType:'',sharingType:'',priceRange:'' })
+    const { homeTypeList, livingTypeList, priceRangeList, sharingTypeList } = useCustomSelector('masterApiSlice');
+    const [filterPgInfo, setFilterInfo] = useState({ homeType: '', livingType: '', sharingType: '', priceRange: '' })
 
-    
+
+
     const handleSelect = (e) => {
-        const {id,value}=e.target   
-        setFilterInfo(prev=>({
-            ...prev,[id]:value
+        const { id, value } = e.target
+        setFilterInfo(prev => ({
+            ...prev, [id]: value
         }))
-
     };
+
 
     return (
         <div className="py-20 container mx-auto px-4 sm:px-6 lg:px-8 shadow">

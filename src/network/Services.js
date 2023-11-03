@@ -39,7 +39,27 @@ const $Services = {
   verifyOtp: async (jsonObj) => {
     let url = $Api_Url.veriyfyOtp_Url
     return invokeApi('POST', url, jsonObj)
-  }
+  },
+  getHomeType:async()=>{
+    let url = $Api_Url.get_hometypeList
+    return invokeApi('GET', url, '')
+  },
+  getLivingType:async()=>{
+    let url = $Api_Url.get_livingtypeList
+    return invokeApi('GET', url,'')
+  },
+  getSharingType:async()=>{
+    let url = $Api_Url.get_sharingtypeList
+    return invokeApi('GET', url,'')
+  },
+  getPriceType:async()=>{
+    let url = $Api_Url.get_pricerangeList
+    return invokeApi('GET', url, '')
+  },
+  getAppQuestiosn:async({userId})=>{
+    let url = $Api_Url.get_allQuestions+userId
+    return invokeApi('GET', url, '')
+  },
 }
 
 

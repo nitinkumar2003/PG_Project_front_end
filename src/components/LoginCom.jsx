@@ -6,13 +6,16 @@ import { actionOfLoginForm } from '../utilities/utilities'
 import $Services from '../network/Services'
 import konsole from '../network/Konsole'
 import useApiCallHook from '../hooks/userApiCall'
+import useSessionStorage from '../hooks/useSessionStorage'
 
 const LoginCom = ({ showToast }) => {
     const customDispatch = useCustomDispatch()
     const apiCallHook = useApiCallHook();
     const { data, userEmail, refrencePageloginSlice } = useLoginFormStatus()
+    const [authToken, setAuthToken] = useSessionStorage('authToken', '')
+    const [loggedInUserDetails, setLoggedInUserDetails] = useSessionStorage('loggedInUserDetails', '')
     const [loggedInDetails, setLoggedInDetails] = useState({ email: '', password: '', validateErr: '' })
-    console.log('datadata', loggedInDetails, data)
+    console.log('authTokenauthToken',authToken,loggedInUserDetails)
 
     const handleUiActions = (action) => {
         customDispatch(action)
@@ -28,6 +31,9 @@ const LoginCom = ({ showToast }) => {
         handleChange('validateErr', '')
         $Services.userLogin({ ...loggedInDetails }).then((res) => {
             konsole.log('res of user login', res)
+            setAuthToken(res.token)
+            setLoggedInUserDetails(res.user)
+            handleUiActions(actionOfLoginForm[0])
         }).catch((err) => {
             konsole.log('err in user login', err.response)
             handleChange('validateErr', 'Invalie Email Or Password')

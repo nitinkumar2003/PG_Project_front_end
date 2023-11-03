@@ -1,14 +1,24 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import { InputBox, InputCheckbox, MultiSelectDropDown } from './InputComponent';
 import ButtonCom from './ButtonCom';
-import { homeTypeList, livingTypeList, sharingTypeList, priceRangeList, roomServiceQuestions } from '../utilities/Constant';
+import $Services from '../network/Services';
+import useCustomSelector from '../hooks/useCustomSelector';
 
 const HostForm = () => {
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+  const { homeTypeList, livingTypeList, priceRangeList, sharingTypeList } = useCustomSelector('masterApiSlice');
+  const [questionsList,setQuestionsList]=useState([])
+
+  useEffect(() => {
+    getAppQuestiosn()
+  }, [])
+
+  const getAppQuestiosn = () => {
+    $Services.getAppQuestiosn('').then((res) => {
+      console.log('res of getting questions', res)
+      setQuestionsList(res.data)
+    }).catch((err) => console.log('err in gettig questions', err))
+
+  }
   return (
     <form>
       <div className='border-2 p-2 rounded-lg border-gray-600 '>
@@ -40,7 +50,7 @@ const HostForm = () => {
         </div>
         <div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {roomServiceQuestions.length > 0 && roomServiceQuestions.map(({ question_label, answer_options, question_id }, quesIndex) => {
+            {questionsList?.length > 0 && questionsList?.map(({ question_label, answer_options, question_id }, quesIndex) => {
               console.log('answer_options', quesIndex, answer_options)
               return (
                 <div className="flex justify-between items-center  ml-2">
@@ -59,8 +69,8 @@ const HostForm = () => {
         </div>
       </div>
       <div className='flex justify-between m-2' >
-        <ButtonCom label='Submit' />
-        <ButtonCom label='Cancel' />
+        {/* <ButtonCom label='Submit' /> */}
+        {/* <ButtonCom label='Cancel' /> */}
       </div>
 
     </form>
