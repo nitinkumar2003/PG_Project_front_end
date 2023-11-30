@@ -6,13 +6,18 @@ import { actionOfLoginForm } from '../utilities/utilities'
 import $Services from '../network/Services'
 import konsole from '../network/Konsole'
 import useApiCallHook from '../hooks/userApiCall'
+import useSessionStorage from '../hooks/useSessionStorage'
+import useCustomDispatchHook from '../hooks/useCustomDispatchHook'
 
 const LoginCom = ({ showToast }) => {
+    const {isLoginOrNotDispatch} = useCustomDispatchHook()
     const customDispatch = useCustomDispatch()
     const apiCallHook = useApiCallHook();
     const { data, userEmail, refrencePageloginSlice } = useLoginFormStatus()
+    const [authToken, setAuthToken] = useSessionStorage('authToken', '')
+    const [loggedInUserDetails, setLoggedInUserDetails] = useSessionStorage('loggedInUserDetails', '')
     const [loggedInDetails, setLoggedInDetails] = useState({ email: '', password: '', validateErr: '' })
-    console.log('datadata', loggedInDetails, data)
+    console.log('authTokenauthToken',authToken,loggedInUserDetails)
 
     const handleUiActions = (action) => {
         customDispatch(action)
@@ -28,6 +33,10 @@ const LoginCom = ({ showToast }) => {
         handleChange('validateErr', '')
         $Services.userLogin({ ...loggedInDetails }).then((res) => {
             konsole.log('res of user login', res)
+            setAuthToken(res.token)
+            setLoggedInUserDetails(res.user)
+            isLoginOrNotDispatch(true)
+            handleUiActions(actionOfLoginForm[0])
         }).catch((err) => {
             konsole.log('err in user login', err.response)
             handleChange('validateErr', 'Invalie Email Or Password')
@@ -48,7 +57,7 @@ const LoginCom = ({ showToast }) => {
                 <div className="flex justify-center items-center">
                     <form className="bg-white p-8 rounded  w-80">
                         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-                        <span className='text-red-600'>{loggedInDetails.validateErr}</span>
+                        {/* <span className='text-red-600'>{loggedInDetails.validateErr}</span */}
                         <InputBox placeholder='Enter Your Email' id='email' allScreen="true" value={loggedInDetails.email} onChange={(e) => handleChange(e.target.id, e.target.value)} />
                         <InputBox placeholder='Enter Your Pasword' id='password' allScreen="true" value={loggedInDetails.password} error={loggedInDetails.validateErr} onChange={(e) => handleChange(e.target.id, e.target.value)} />
 

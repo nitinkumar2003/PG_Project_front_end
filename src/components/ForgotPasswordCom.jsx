@@ -47,6 +47,7 @@ const ForgotPasswordCom = ({ showToast }) => {
   }
 
   const sendEmail = (e) => {
+    e.preventDefault()
     if (validate()) return;
     isLoadingUpdate(true)
     $Services.sentOtp({ email: forgotDetails.email }).then((res) => {
@@ -67,7 +68,7 @@ const ForgotPasswordCom = ({ showToast }) => {
         <h2 className="text-2xl font-bold mb-4 text-center">Forgot Password</h2>
         <p className=" mb-4 text-center">Please enter your email address to reset your password.</p>
         <div className="flex justify-center items-center">
-          <form className="bg-white  rounded  w-80">
+          <form className="bg-white  rounded  w-80" onSubmit={sendEmail}>
             <InputBox
               id='email'
               allScreen="true"

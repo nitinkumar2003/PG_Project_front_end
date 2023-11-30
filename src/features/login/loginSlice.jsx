@@ -11,7 +11,8 @@ const initialState = {
   status: 'idle',
   data: '',
   userEmail: '',
-  isUserLogin:false
+  isUserLogin: false,
+  isLogin: false
 };
 console.log('initialState', initialState)
 
@@ -79,6 +80,12 @@ export const loginSlice = createSlice({
       }
 
     },
+    isLoginOrNot: (state, action) => {
+      const authToken = sessionStorage.getItem('authToken')
+      console.log('authTokenazs',authToken)
+      state.isLogin=action.payload
+
+    }
   },
   extraReducers: (builder) => {
     // builder .addCase(signUpAsync.fulfilled, (state, action) => {
@@ -87,5 +94,5 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { openLoginSignUpForm } = loginSlice.actions;
+export const { openLoginSignUpForm, isLoginOrNot } = loginSlice.actions;
 export default loginSlice.reducer;

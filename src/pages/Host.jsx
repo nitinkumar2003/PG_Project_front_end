@@ -4,10 +4,14 @@ import HostForm from '../components/HostForm'
 
 const Host = () => {
   return (
-    <div className="py-20 container mx-auto px-4 sm:px-6 lg:px-8 shadow">
-      <h5 className='font-bold text-2xl sm:text-2xl border-b mb-4 pb-2'>Add Property</h5>
-      <HostForm />
-    </div>
+    <>
+      <div className="m-16 container mx-auto">
+        <h5 className='container font-bold text-2xl sm:text-2xl border-b  fixed bg-gray-400 z-20 w-full'>Add Property</h5>
+      </div>
+      <div className='container mx-auto sm:px-6 lg:px-8 shadow pt-1 bg-gray-400'>
+        <HostForm />
+      </div>      
+    </>
   )
 }
 
