@@ -11,6 +11,7 @@ import useLoading from './hooks/useLoading'
 import withToaster from './HOC/withToaster'
 import Layout from './pages/Layout'
 import PrivateRoute from './pages/PrivateRoute'
+import SelectPg from './pages/SelectPg'
 
 function App({ showToast }) {
   const { isLoading } = useLoading()
@@ -25,7 +26,8 @@ function App({ showToast }) {
         <Login showToast={showToast} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/searchpg' element={<SearchPg />} />
+          <Route path='/search' element={<SearchPg />} />
+          <Route path='/search/:id' element={<SelectPg />} />
           <Route path='/host' element={<PrivateRoute ><Host /></PrivateRoute>} />
         </Routes>
       </Layout>

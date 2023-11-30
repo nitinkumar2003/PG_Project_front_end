@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment, useRef } from 'react'
 import { SelectDropdown, InputBox } from '../components/InputComponent'
 import useCustomSelector from '../hooks/useCustomSelector'
-import $Services from '../network/Services';
+import { useNavigate } from 'react-router-dom'
 
 const SearchPg = () => {
-    const { homeTypeList, livingTypeList, priceRangeList, sharingTypeList } = useCustomSelector('masterApiSlice');
+    const { homeTypeList, livingTypeList, priceRangeList, sharingTypeList, propertyList } = useCustomSelector('masterApiSlice');
+    const navigate = useNavigate(null)
     const [filterPgInfo, setFilterInfo] = useState({ homeType: '', livingType: '', sharingType: '', priceRange: '' })
-
-
 
     const handleSelect = (e) => {
         const { id, value } = e.target
@@ -16,6 +15,11 @@ const SearchPg = () => {
         }))
     };
 
+
+    const navigateRoute = (item) => {
+        console.log('itemitemitemza', item)
+        navigate(`/search/${item._id}`)
+    }
 
     return (
         <div className="py-20 container mx-auto px-4 sm:px-6 lg:px-8 shadow">
@@ -52,8 +56,37 @@ const SearchPg = () => {
                     id='priceRange'
                 />
             </div>
+            <div>
+
+                {/*----------------------------------------------------  show list component ------------------------------------------------------------------------------ */}
+                <div className="bg-white">
+                    <div className="mx-auto max-w-2xl px-1 py-4 sm:px-3 sm:py-6 lg:max-w-7xl lg:px-2">
+                        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Property details</h2>
+                        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                            {propertyList?.map((item, index) => {
+                                console.log('item', item)
+                                return (<>
+                                    <div key={item} className="group relative shadow-md cursor-pointer" onClick={() => navigateRoute(item)}>
+                                        <div className="w-full overflow-hidden  bg-gray-200  relative group-hover:opacity-75">
+                                            <img src="https://via.placeholder.com/500/" alt={`Image-${index}`} />
+                                        </div>
+                                        <div className="mt-2 flex justify-between p-2">
+                                            <div>
+                                                <h3 className="text-sm text-gray-900"> {item.name} </h3>
+                                                <p className="mt-1 text-sm text-gray-500">{item.location}</p>
+                                            </div>
+                                            <p className="text-sm font-medium text-gray-900">{item.mobile}</p>
+                                        </div>
+                                    </div>
+                                </>)
+                            })}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
+
 
 export default SearchPg

@@ -6,6 +6,7 @@ const initialState = {
     livingTypeList: [],
     sharingTypeList: [],
     priceRangeList: [],
+    propertyList:[],
     status: 'idle',
 }
 
@@ -31,6 +32,12 @@ export const fetchPriceType = createAsyncThunk('master/fetchPriceType', async ()
   return response.data;
 });
 
+export const fetchPropertyList = createAsyncThunk('property/get', async () => {
+  console.log('callapicallapi')
+  const response = await $Services.getPropertyList();
+  return response.data;
+});
+
 
 export const masterApiSlice = createSlice({
     name: 'master',
@@ -52,7 +59,10 @@ export const masterApiSlice = createSlice({
             .addCase(fetchPriceType.fulfilled, (state, action) => {
               console.log('actionsactions',action)
             state.priceRangeList = action.payload;
-          });
+          }).addCase(fetchPropertyList.fulfilled, (state, action) => {
+            console.log('actionsactions',action)
+            state.propertyList = action.payload;
+        });
       },
 })
 export const {setHomeTypeList,setLivingTypeList,setSharingTypeList,setPriceRangeList}=masterApiSlice.actions

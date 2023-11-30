@@ -60,6 +60,18 @@ const $Services = {
     let url = $Api_Url.get_allQuestions+userId
     return invokeApi('GET', url, '')
   },
+  postPropertyBasic:async(jsonObj)=>{
+    let url=$Api_Url.post_property_url;
+    return invokeApi('POSt', url,jsonObj)
+  },
+  postPropertyAnswer:async(jsonObj)=>{
+    let url=$Api_Url.post_property_answer_url;
+    return invokeApi('POSt', url,jsonObj)
+  },
+  getPropertyList:async()=>{
+    let url=$Api_Url.getPropertyList
+    return invokeApi('GET', url,' ')
+  }
 }
 
 

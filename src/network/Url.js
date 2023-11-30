@@ -10,6 +10,11 @@ get_hometypeList:'master/homeType',
 get_livingtypeList:'master/livingtype',
 get_sharingtypeList:'master/shareType',
 get_pricerangeList:'master/priceType',
-get_allQuestions:'questions/questions/'
+get_allQuestions:'questions/questions/',
+post_property_url:'property/basicDetails',
+post_property_answer_url:'property/answer',
+getPropertyList:'property/get',
+
+// basicDetails
 }
 export {$Api_Url}

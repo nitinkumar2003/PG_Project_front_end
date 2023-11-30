@@ -6,12 +6,12 @@ import { ArrowPathIcon, ChartPieIcon, CursorArrowRaysIcon, FingerPrintIcon, Squa
 import Select from 'react-select';
 import './InputComponent.css'
 
-export const SelectDropdown = ({ options, value,disable, handleSelect, label, id }) => {
+export const SelectDropdown = ({ options, value,disable, onChange, label, id }) => {
     return (
         <select
             className="block m-1 appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
             value={value}
-            onChange={handleSelect}
+            onChange={onChange}
             id={id}
         >
             <option value=''>{label}</option>
@@ -43,16 +43,16 @@ export const InputBox = ({onChange,handleBlur,id,disable,value, placeholder, all
     </>
 }
 
-export const InputCheckbox = ({ label, idForName, checked, onChange }) => {
+export const InputCheckbox = ({ label, name, id, checked, onChange }) => {
     return (
         <>
-            <input type="radio" className="mt-2 mb-1 ms-2 mr-2 h-6 w-6" name={idForName} />
+            <input type="radio" className="mt-2 mb-1 ms-2 mr-2 h-6 w-6" onChange={onChange} id={id}  name={name} />
             <label className='text-md'>{label}</label>
         </>
     )
 }
 
-export const MultiSelectDropDown = ({ placeholder, options, isMulti = false, allScreen = false }) => {
+export const MultiSelectDropDown = ({ placeholder, options,onChange,value=[], isMulti = false, allScreen = false }) => {
     return (
         <>
             <div className={`${allScreen ? '' : 'w-1/2 ml-2'} mb-4`}>
@@ -60,6 +60,8 @@ export const MultiSelectDropDown = ({ placeholder, options, isMulti = false, all
                     placeholder={placeholder}
                     options={options}
                     isMulti={isMulti}
+                    onChange={onChange}
+                    value={value}
                     classNamePrefix="react-select"
                     className="select-control"
                 />

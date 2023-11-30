@@ -34,4 +34,13 @@ export const $Constant = {
 
 }
 
+export const createQuestionAnsJson=({question_id,answer_id})=>{
+  return{
+    question_id:Number(question_id) ?? null,
+    answer_id:Number(answer_id) ?? null
+  }
+}
+
+
+
 
