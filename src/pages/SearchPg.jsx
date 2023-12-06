@@ -66,7 +66,7 @@ const SearchPg = () => {
                             {propertyList?.map((item, index) => {
                                 console.log('item', item)
                                 return (<>
-                                    <div key={item} className="group relative shadow-md cursor-pointer" onClick={() => navigateRoute(item)}>
+                                    <div key={index} className="group relative shadow-md cursor-pointer" onClick={() => navigateRoute(item)}>
                                         <div className="w-full overflow-hidden  bg-gray-200  relative group-hover:opacity-75">
                                             <img src="https://via.placeholder.com/500/" alt={`Image-${index}`} />
                                         </div>

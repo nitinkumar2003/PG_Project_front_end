@@ -35,6 +35,7 @@ export const fetchPriceType = createAsyncThunk('master/fetchPriceType', async ()
 export const fetchPropertyList = createAsyncThunk('property/get', async () => {
   console.log('callapicallapi')
   const response = await $Services.getPropertyList();
+  console.log('responseresponseresponse',response)
   return response.data;
 });
 

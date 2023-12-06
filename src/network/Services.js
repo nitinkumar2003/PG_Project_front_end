@@ -56,8 +56,8 @@ const $Services = {
     let url = $Api_Url.get_pricerangeList
     return invokeApi('GET', url, '')
   },
-  getAppQuestiosn:async({userId})=>{
-    let url = $Api_Url.get_allQuestions+userId
+  getAppQuestiosn:async({property_id})=>{
+    let url = $Api_Url.get_allQuestions+property_id
     return invokeApi('GET', url, '')
   },
   postPropertyBasic:async(jsonObj)=>{
@@ -69,10 +69,17 @@ const $Services = {
     return invokeApi('POSt', url,jsonObj)
   },
   getPropertyList:async()=>{
-    let url=$Api_Url.getPropertyList
+    let url=$Api_Url.getPropertyList_url
     return invokeApi('GET', url,' ')
+  },
+  postAddress:async(jsonObj)=>{
+    let url=$Api_Url.post_address_url
+    return invokeApi('POST',url,jsonObj)
   }
 }
+
+
+
 
 
 export default $Services

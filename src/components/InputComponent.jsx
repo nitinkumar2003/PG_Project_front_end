@@ -15,8 +15,8 @@ export const SelectDropdown = ({ options, value,disable, onChange, label, id }) 
             id={id}
         >
             <option value=''>{label}</option>
-            {options.map((option) => (
-                <option key={option.value} value={option.value}>
+            {options.map((option,index)  => (
+                <option key={index} value={option.value}>
                     {option.label}
                 </option>
             ))}

@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, } from 'react';
 import { InputBox, InputCheckbox, MultiSelectDropDown } from './InputComponent';
 import { useNavigate } from 'react-router-dom';
 import ButtonCom from './ButtonCom';
 import $Services from '../network/Services';
 import useCustomSelector from '../hooks/useCustomSelector';
 import useSessionStorage from '../hooks/useSessionStorage';
+import { useDispatch } from 'react-redux';
 import { createQuestionAnsJson } from '../utilities/Constant';
 import withToaster from '../HOC/withToaster';
+import { fetchPropertyList } from '../features/masterApi/masterApiSlice';
+import { AddressCom } from './AddressCom';
 
 
 
 const HostForm = ({ showToast }) => {
+  const dispatch = useDispatch()
   const { homeTypeList, livingTypeList, priceRangeList, sharingTypeList, propertyList } = useCustomSelector('masterApiSlice');
   console.log('propertyListpropertyList', JSON.stringify(propertyList))
   const [loggedInUserDetails] = useSessionStorage('loggedInUserDetails')
@@ -21,11 +25,16 @@ const HostForm = ({ showToast }) => {
   const [propertyDetails, setPropertyDetails] = useState({ name: '', location: '' })
   const [propertyOwnerDetails, setPropertyOwnerDetails] = useState({ name: '', email: '', mobile: '' })
   const [propertyCatetakerDetails, setPropertyCaretakerDetails] = useState({ name: '', email: '', mobile: '' })
+  const [addressInfo, setAddressInfo] = useState({})
+  const [location, setLocation] = useState('')
   const [homeTypeSelect, setHomeTypeSelect] = useState([]);
   const [priceTypeSelect, setPriceTypeSelect] = useState([]);
   const [shareTypeSelect, setShareTypeSelect] = useState([]);
   const [livinTypeSelect, setLivinTypeSelect] = useState([]);
   const [questionAns, setQuestionAns] = useState([])
+
+
+  console.log('addressInfoaddressInfoaddressInfo', addressInfo)
 
   useEffect(() => {
     getAppQuestiosn()
@@ -47,7 +56,7 @@ const HostForm = ({ showToast }) => {
     e.preventDefault()
     const jsonObj = {
       userId: loggedInUserId,
-      "location": "Property Location",
+      location: location,
       name: propertyDetails.name,
       propertyOwner: propertyOwnerDetails,
       caretaker: propertyCatetakerDetails,
@@ -61,15 +70,19 @@ const HostForm = ({ showToast }) => {
     console.log('jsonObj', jsonObj)
     // handleSaveAns()
     // return;
-    $Services.postPropertyBasic(jsonObj).then((res) => {
+    $Services.postPropertyBasic(jsonObj).then(async (res) => {
       console.log('resres', res)
       const dataId = res.data._id
+      // if (addressInfo && Object.keys(addressInfo).length > 0) {
+        const addresJson = { property_id: dataId, ...addressInfo }
+        let result = await $Services.postAddress(addresJson)
+        console.log('resultresult', result)
+      // }
       console.log('dataId', dataId)
       if (questionAns.length !== 0) {
         handleSaveAns(dataId)
       } else {
-        showToast('success', 'Data saved successsfully.')
-        navigate('/')
+        navigate_aftersave()
       }
     }).catch((err) => console.log('err in save property', err))
     // alert('form submit')
@@ -86,8 +99,17 @@ const HostForm = ({ showToast }) => {
     console.log('jsonObj', jsonObj)
     $Services.postPropertyAnswer(jsonObj).then((res) => {
       console.log('res of saving answer')
+      navigate_aftersave();
     }).catch((err) => console.log('error in saving answrr', err))
   }
+
+
+  const navigate_aftersave = () => {
+    dispatch(fetchPropertyList());
+    showToast('success', 'Data saved successsfully.');
+    navigate('/search');
+  }
+
 
   const handleChange = (e, type) => {
     const { value, id } = e.target
@@ -146,7 +168,8 @@ const HostForm = ({ showToast }) => {
           <InputBox placeholder='Property Owner mobile' name='mobile' id='mobile' onChange={(e) => handleChange(e, 'owner')} />
           <InputBox placeholder='Care taker mobile' id='mobile' onChange={(e) => handleChange(e, 'caretaker')} />
         </div>
-        <InputBox placeholder='Enter Location' allScreen="true" />
+        {/* <InputBox placeholder='Enter Location' allScreen="true" id='location' value={location} onChange={(e)=>setLocation(e.target.value)} /> */}
+        <AddressCom setAddressInfo={setAddressInfo} />
       </div>
       <div className='border-1 p-2 rounded-lg mt-2'>
         <h6 className='font-bold text-1xl sm:text-1xl border-b mb-4 pb-2'>Services</h6>
@@ -163,7 +186,7 @@ const HostForm = ({ showToast }) => {
             {questionsList?.length > 0 && questionsList?.map(({ question_label, answer_options, question_id }, quesIndex) => {
               console.log('answer_options', quesIndex, answer_options)
               return (
-                <div className="flex justify-between items-center  ml-2">
+                <div className="flex justify-between items-center  ml-2" key={quesIndex}>
                   <label className="text-gray-700">({quesIndex + 1}) {question_label}</label>
                   <div className="flex items-center">
                     {answer_options.length > 0 && answer_options.map(({ answer_label, answer_id }, ansindex) => {
