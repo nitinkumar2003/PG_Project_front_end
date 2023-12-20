@@ -1,4 +1,5 @@
 export const allReduxSliceName = ['login', 'loader', 'masterApiSlice']
+export const googleApiKey="AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI";
 
 export const aboutuspagecontent1 = "BookPgWithNk.com serves as a vital bridge connecting students and professionals to affordable, secure PG accommodations across India. Our primary aim is to furnish a convenient, trouble-free solution for those seeking a comfortable abode while pursuing studies or employment in a new city.We empathize with the complexities of securing the perfect PG, especially in unfamiliar territory. Hence, our commitment lies in simplifying this process, ensuring a seamless and stress-free experience for our patrons. Our platform boasts a diverse selection of PG accommodations, catering to various budgets and individual preferences. Furthermore, we offer an effortless booking journey, complete with secure payment methods and around-the-clock customer assistance."
 export const aboutPagePeopleReview = [

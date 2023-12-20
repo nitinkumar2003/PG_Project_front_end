@@ -3,12 +3,15 @@ import { useParams } from 'react-router-dom';
 import useCustomSelector from '../hooks/useCustomSelector';
 import konsole from '../network/Konsole';
 import $Services from '../network/Services';
+import GoogleMapCom from '../components/GoogleMapCom';
 
 const SelectPg = () => {
     const { homeTypeList, livingTypeList, priceRangeList, sharingTypeList, propertyList } = useCustomSelector('masterApiSlice');
     const { id } = useParams();
     const [selectedData, setSelectedData] = useState(null)
+    const [address, setAddress] = useState('')
     const [answerList, setAnswerList] = useState([])
+    const [uplodedImage,setUploadedImage]=useState('')
     const propertyDetails = selectedData?.propertyType;
 
     useEffect(() => {
@@ -19,6 +22,8 @@ const SelectPg = () => {
         getAppQuestiosnAns(_id)
         if (propertySelectedData) {
             setSelectedData(propertySelectedData)
+            setAddress(propertySelectedData?.address)
+            setUploadedImage(propertySelectedData?.image)
         }
     }, [propertyList])
 
@@ -52,15 +57,15 @@ const SelectPg = () => {
         </div>
     }
 
-    konsole.log('selectedData',selectedData)
+    konsole.log('selectedData',address, selectedData)
     return (
         <>
             <div className="m-16 container mx-auto">
                 <div className='container fixed bg-white z-10 mb-5 '>
-
-                    <p className='mt-1 cursor-pointer' onClick={() => window.history.back()}> <img src="/images/previous.png" className='h-5 w-5 inline-block align-middle me-2' /><span className='mt-2 text-green-900 font-bold'>Back</span></p>
-                    <h5 className='font-bold sm:text-3xl'>{selectedData?.name}</h5>
-                    <h2 className=' border-b mb-4 pb-2'>{selectedData?.address?.addressLineOne} </h2>
+                    <h6 className='font-bold sm:text-3xl'>
+                        <img src="/images/previous.png" className='h-5 w-5 inline-block align-middle me-2 cursor-pointer' onClick={() => window.history.back()} />
+                        {selectedData?.name}</h6>
+                    <h2 className='border-b mb-2'>{selectedData?.address?.addressLineOne} </h2>
                 </div>
             </div>
             <div className="py-20 container mx-auto px-4 sm:px-6 lg:px-8 shadow">
@@ -68,8 +73,10 @@ const SelectPg = () => {
                     {/* --------------------------------Image Part--------------------------------------------------------------------- */}
                     <div className="lg:w-1/2">
                         <img
-                            src="https://placekitten.com/800/600"
-                            alt="Example"
+                            // src="https://placekitten.com/800/600"
+                            src={uplodedImage?.url}
+                            // alt={uplodedImage}
+                            alt="Image not found"
                             className="object-cover w-full h-full rounded-l-lg"
                         />
                     </div>
@@ -113,7 +120,19 @@ const SelectPg = () => {
                     </div>
                     {/* --------------------------------Image Part--------------------------------------------------------------------- */}
                     <div className="lg:w-1/2">
-                        <img src="https://placekitten.com/800/600" alt="Example" className="object-cover w-full h-full rounded-r-lg" />
+
+                        {(address) ?
+                            <GoogleMapCom
+                                lng={address?.long}
+                                lat={address?.lat}
+                                name={selectedData?.name}
+                            /> :
+                            <img
+                                // src="https://placekitten.com/800/600"
+                                alt="Google map not available."
+                                className="object-cover w-full h-full rounded-r-lg"
+                            />}
+
                     </div>
                 </div>
             </div>
