@@ -13,7 +13,9 @@ get_pricerangeList:'master/priceType',
 get_allQuestions:'questions/questions/',
 post_property_url:'property/basicDetails',
 post_property_answer_url:'property/answer',
-getPropertyList:'property/get',
+getPropertyList_url:'property/get',
+post_address_url:'address/add',
+post_uploadimage_url:'image/upload'
 
 // basicDetails
 }

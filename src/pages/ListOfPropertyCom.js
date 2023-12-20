@@ -6,22 +6,8 @@ import PaginationCom from '../components/PaginationCom'
 
 const SearchPg = () => {
     const { homeTypeList, livingTypeList, priceRangeList, sharingTypeList, propertyList } = useCustomSelector('masterApiSlice');
-    const itemsPerPage = 4
     const navigate = useNavigate(null)
     const [filterPgInfo, setFilterInfo] = useState({ homeType: '', livingType: '', sharingType: '', priceRange: '' })
-    const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(propertyList.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentItems = propertyList.slice(startIndex, endIndex);
-
-    const handlePageChange = (newPage) => {
-        if (newPage >= 1 && newPage <= totalPages) {
-            setCurrentPage(newPage);
-        }
-    };
-
-
 
     const handleSelect = (e) => {
         const { id, value } = e.target
@@ -76,17 +62,14 @@ const SearchPg = () => {
                 {/*----------------------------------------------------  show list component ------------------------------------------------------------------------------ */}
                 <div className="bg-white">
                     <div className="mx-auto max-w-2xl px-1 py-4 sm:px-3 sm:py-6 lg:max-w-7xl lg:px-2">
-                        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Property details </h2>
-                        <PaginationCom handlePageChange={handlePageChange} currentPage={currentPage} totalPages={totalPages} />
-
+                        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Property details</h2>
                         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                            {currentItems?.map((item, index) => {
+                            {propertyList?.map((item, index) => {
                                 console.log('item', item)
                                 return (<>
                                     <div key={index} className="group relative shadow-md cursor-pointer" onClick={() => navigateRoute(item)}>
                                         <div className="w-full overflow-hidden  bg-gray-200  relative group-hover:opacity-75">
-                                            {/* <img src="https://via.placeholder.com/500/" alt={`Image-${index}`} /> */}
-                                            <img src={item?.image?.url} alt={`${item?.image} `} />
+                                            <img src="https://via.placeholder.com/500/" alt={`Image-${index}`} />
                                         </div>
                                         <div className="mt-2 flex justify-between p-2">
                                             <div>
@@ -101,14 +84,11 @@ const SearchPg = () => {
                         </div>
                     </div>
                 </div>
+                <PaginationCom list={propertyList}  />
             </div>
         </div>
     )
 }
 
 
-
-
-export default SearchPg
-
-
+export default ListOfProperty

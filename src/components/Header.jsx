@@ -14,19 +14,19 @@ function classNames(...classes) {
 }
 
 function Header({ showToast }) {
- const {isLoginOrNotDispatch}=useCustomDispatchHook()
+  const { isLoginOrNotDispatch } = useCustomDispatchHook()
   const { isLogin } = useCustomSelector('login');
   const { isLoginForm, isLoginSignUpForm, isSignUpForm } = useLoginFormStatus()
-  const [AuthToken,setAuthToken] = useSessionStorage('authToken', '');
-  const [loggedInUserDetails,setLoggedInUserDetails] = useSessionStorage('loggedInUserDetails', '');
+  const [AuthToken, setAuthToken] = useSessionStorage('authToken', '');
+  const [loggedInUserDetails, setLoggedInUserDetails] = useSessionStorage('loggedInUserDetails', '');
   const customDispatch = useCustomDispatch()
   const navigate = useNavigate()
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [navigationList, setNavigationList] = useState(navigationLink)
   const handleRoute = (name, tonavigate) => {
-    console.log('namename',name,tonavigate)
-    if(name==='HOST PG' && isLogin ==false) {
+    console.log('namename', name, tonavigate)
+    if (name === 'HOST PG' && isLogin == false) {
       alert("u don't have access . pls login first")
       return;
     }
@@ -35,10 +35,11 @@ function Header({ showToast }) {
     setIsMobileMenuOpen(false)
   }
   const handleLoginIn = () => {
-    if(isLogin){
+    if (isLogin) {
       setLoggedInUserDetails('')
       setAuthToken('')
       sessionStorage.clear()
+      navigate('/')
       isLoginOrNotDispatch(false)
       return;
     }
@@ -59,20 +60,20 @@ function Header({ showToast }) {
                     <div className="flex items-center">
                       <div className="flex-shrink-0 text-white">
                         {/* <img className="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" /> */}
-                      NK
+                        NK
                       </div>
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigationList.map((item) => (
+                        {navigationList.filter((item) => isLogin == false ? item.name !== "HOST PG" : item).map((item) => (
                           <a key={item.name} onClick={() => handleRoute(item.name, item.href)}
                             aria-current={item.current ? 'page' : undefined}
                             className={classNames(item.current ? 'underline underline-offset-4 text-blue-500' : 'text-gray-300 hover:text-blue-200', 'rounded-md px-3 py-2 text-sm font-medium cursor-pointer')}
                           >{item.name}</a>
                         ))}
                         <a href="#" className="text-sm font-semibold leading-6 text-gray-100 hover:text-white"
-                         onClick={handleLoginIn} > 
-                        {(isLogin)? 'Logout':'Log In'}<span aria-hidden="true">&rarr;</span></a>
+                          onClick={handleLoginIn} >
+                          {(isLogin) ? 'Logout' : 'Log In'}<span aria-hidden="true">&rarr;</span></a>
                       </div>
                     </div>
                     <div className="-mr-2 flex md:hidden">
@@ -98,7 +99,7 @@ function Header({ showToast }) {
                   {(ref) => (
                     <div ref={ref} className="md:hidden absolute top-0 right-0 h-full bg-gray-800 w-64 z-20">
                       <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3 bg-gray-800">
-                        {navigationList.map((item) => (
+                        {navigationList.filter((item) => isLogin == false ? item.name !== "HOST PG" : item).map((item) => (
                           <Disclosure.Button key={item.name} as="a" onClick={() => handleRoute(item.name, item.href)}
                             className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium cursor-pointer'
                             )}
@@ -106,7 +107,7 @@ function Header({ showToast }) {
                           > {item.name} </Disclosure.Button>
                         ))}
                         <a className='block rounded-md px-3 py-2 text-base font-medium cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white'
-                         onClick={handleLoginIn} > {(isLogin)?'Logout':'Log in'}<span aria-hidden="true">&rarr;</span></a>
+                          onClick={handleLoginIn} > {(isLogin) ? 'Logout' : 'Log in'}<span aria-hidden="true">&rarr;</span></a>
 
                       </div>
                     </div>

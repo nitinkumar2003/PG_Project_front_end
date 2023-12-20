@@ -4,6 +4,7 @@ import { json } from "react-router-dom";
 
 axios.defaults.baseURL = 'http://localhost:4001/';
 axios.defaults.headers.common['Content-Type'] = `application/json`
+// axios.defaults.headers.common['Content-Type'] = `multipart/form-data`
 
 
 const invokeApi = async (method, url, data = null) => {
@@ -15,6 +16,19 @@ const invokeApi = async (method, url, data = null) => {
     throw error;
   }
 };
+
+const invokeFileApi = async (url, formData) => {
+  try {
+    const response = await axios.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response?.data;
+  } catch (error) {
+    console.log('Error', error)
+  }
+}
 
 
 
@@ -40,39 +54,58 @@ const $Services = {
     let url = $Api_Url.veriyfyOtp_Url
     return invokeApi('POST', url, jsonObj)
   },
-  getHomeType:async()=>{
+  getHomeType: async () => {
     let url = $Api_Url.get_hometypeList
     return invokeApi('GET', url, '')
   },
-  getLivingType:async()=>{
+  getLivingType: async () => {
     let url = $Api_Url.get_livingtypeList
-    return invokeApi('GET', url,'')
+    return invokeApi('GET', url, '')
   },
-  getSharingType:async()=>{
+  getSharingType: async () => {
     let url = $Api_Url.get_sharingtypeList
-    return invokeApi('GET', url,'')
+    return invokeApi('GET', url, '')
   },
-  getPriceType:async()=>{
+  getPriceType: async () => {
     let url = $Api_Url.get_pricerangeList
     return invokeApi('GET', url, '')
   },
-  getAppQuestiosn:async({userId})=>{
-    let url = $Api_Url.get_allQuestions+userId
+  getAppQuestiosn: async ({ property_id }) => {
+    let url = $Api_Url.get_allQuestions + property_id
     return invokeApi('GET', url, '')
   },
-  postPropertyBasic:async(jsonObj)=>{
-    let url=$Api_Url.post_property_url;
-    return invokeApi('POSt', url,jsonObj)
+  postPropertyBasic: async (jsonObj) => {
+    let url = $Api_Url.post_property_url;
+    return invokeApi('POSt', url, jsonObj)
   },
-  postPropertyAnswer:async(jsonObj)=>{
-    let url=$Api_Url.post_property_answer_url;
-    return invokeApi('POSt', url,jsonObj)
+  postPropertyAnswer: async (jsonObj) => {
+    let url = $Api_Url.post_property_answer_url;
+    return invokeApi('POSt', url, jsonObj)
   },
-  getPropertyList:async()=>{
-    let url=$Api_Url.getPropertyList
-    return invokeApi('GET', url,' ')
+  getPropertyList: async () => {
+    let url = $Api_Url.getPropertyList_url
+    return invokeApi('GET', url, ' ')
+  },
+  postAddress: async (jsonObj) => {
+    let url = $Api_Url.post_address_url;
+    return invokeApi('POST', url, jsonObj)
+  },
+  postUploadImage: async (formData) => {
+    let url = $Api_Url.post_uploadimage_url;
+    return invokeApi('POST', url, formData)
+  },
+
+
+  // ************************************************______________UPLOAD_FILE__________________***********************************************************
+  uploadImages: async (formData) => {
+    let url = $Api_Url.post_uploadimage_url;
+    return invokeFileApi(url, formData)
   }
+
 }
+
+
+
 
 
 export default $Services

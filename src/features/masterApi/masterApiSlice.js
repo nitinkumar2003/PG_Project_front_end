@@ -9,9 +9,7 @@ const initialState = {
     propertyList:[],
     status: 'idle',
 }
-
-
-
+    
 export const fetchHomeType = createAsyncThunk('master/fetchHomeType', async () => {
   const response = await $Services.getHomeType();
   return response.data;
@@ -35,6 +33,7 @@ export const fetchPriceType = createAsyncThunk('master/fetchPriceType', async ()
 export const fetchPropertyList = createAsyncThunk('property/get', async () => {
   console.log('callapicallapi')
   const response = await $Services.getPropertyList();
+  console.log('response of get property ',response)
   return response.data;
 });
 
