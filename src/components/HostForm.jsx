@@ -6,28 +6,37 @@ import $Services from '../network/Services';
 import useCustomSelector from '../hooks/useCustomSelector';
 import useSessionStorage from '../hooks/useSessionStorage';
 import { useDispatch } from 'react-redux';
-import { createQuestionAnsJson } from '../utilities/Constant';
+import { createQuestionAnsJson, $Constant } from '../utilities/Constant';
+import { } from '../utilities/Constant';
 import withToaster from '../HOC/withToaster';
 import { fetchPropertyList } from '../features/masterApi/masterApiSlice';
 import { AddressCom } from './AddressCom';
 import { $Api_Url } from '../network/Url';
 import axios from 'axios';
+import { warningMsg } from '../utilities/utilities';
+import useLoading from '../hooks/useLoading';
+
 
 
 
 const HostForm = ({ showToast }) => {
   const dispatch = useDispatch()
+  const { isLoadingUpdate } = useLoading()
+  const { isCheckUndefineNullBlank } = $Constant
   const { homeTypeList, livingTypeList, priceRangeList, sharingTypeList, propertyList } = useCustomSelector('masterApiSlice');
   console.log('propertyListpropertyList', JSON.stringify(propertyList))
   const [loggedInUserDetails] = useSessionStorage('loggedInUserDetails')
+  const [authToken] = useSessionStorage('authToken')
   const loggedInUserId = loggedInUserDetails.userId
+  console.log('xyz',authToken)
 
   const navigate = useNavigate()
   const [questionsList, setQuestionsList] = useState([])
-  const [propertyDetails, setPropertyDetails] = useState({ name: '', location: '' })
-  const [propertyOwnerDetails, setPropertyOwnerDetails] = useState({ name: '', email: '', mobile: '' })
-  const [propertyCatetakerDetails, setPropertyCaretakerDetails] = useState({ name: '', email: '', mobile: '' })
+  const [propertyDetails, setPropertyDetails] = useState({ name: '', location: '', nameErr: '', loctionErr: "" })
+  const [propertyOwnerDetails, setPropertyOwnerDetails] = useState({ name: '', email: '', mobile: '', nameErr: "", emailErr: "", mobileErr: "" })
+  const [propertyCatetakerDetails, setPropertyCaretakerDetails] = useState({ name: '', email: '', mobile: '', nameErr: "", emailErr: "", mobileErr: "" })
   const [addressInfo, setAddressInfo] = useState({})
+  const [addressErr, setAddressErr] = useState(false)
   const [location, setLocation] = useState('')
   const [homeTypeSelect, setHomeTypeSelect] = useState([]);
   const [priceTypeSelect, setPriceTypeSelect] = useState([]);
@@ -36,6 +45,9 @@ const HostForm = ({ showToast }) => {
   const [questionAns, setQuestionAns] = useState([])
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+
+
+
 
 
 
@@ -56,9 +68,50 @@ const HostForm = ({ showToast }) => {
   }
 
 
+  // **********************************************_____________Validate Fun________________**********************************
+  const validateFun = () => {
+    let error = false
+    if (isCheckUndefineNullBlank(propertyDetails.name)) {
+      handleUpdateState(setPropertyDetails, 'nameErr', warningMsg?._propertyName_Err)
+      error = true;
+    }
+    if (isCheckUndefineNullBlank(propertyOwnerDetails.name)) {
+      handleUpdateState(setPropertyOwnerDetails, 'nameErr', warningMsg?._propertyOwnerName_Err)
+      error = true;
+    }
+    if (isCheckUndefineNullBlank(propertyOwnerDetails.mobile)) {
+      handleUpdateState(setPropertyOwnerDetails, 'mobileErr', warningMsg?._propertyOwnerMobile_Err)
+      error = true;
+    }
+    if (isCheckUndefineNullBlank(propertyCatetakerDetails.name)) {
+      handleUpdateState(setPropertyCaretakerDetails, 'nameErr', warningMsg?._propertyCaretakerName_Err)
+      error = true;
+    }
+    if (isCheckUndefineNullBlank(propertyCatetakerDetails.mobile)) {
+      handleUpdateState(setPropertyCaretakerDetails, 'mobileErr', warningMsg?._propertyCaratakerMobile_Err)
+      error = true;
+    }
+    if (Object.keys(addressInfo).length == 0) {
+      setAddressErr(true)
+      error = true;
+    }
+    if (error) {
+      return false;
+    }
+    return true
+  }
+  const toSchrollEve = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   // **********************************************_____________SAVE FUNCTION________________*********************************
   const handleSave = (e) => {
-    e.preventDefault()
+    console.log('addressInfoaddressInfoaddressInfo', Object.keys(addressInfo))
+    e.preventDefault();
+    if (!validateFun()) {
+      toSchrollEve()
+      return;
+    };
+
     const jsonObj = {
       userId: loggedInUserId,
       location: location,
@@ -75,6 +128,7 @@ const HostForm = ({ showToast }) => {
     console.log('jsonObj', jsonObj)
     // handleSaveAns()
     // return;
+    isLoadingUpdate(true)
     $Services.postPropertyBasic(jsonObj).then(async (res) => {
       console.log('resres', res)
       const dataId = res.data._id
@@ -95,6 +149,7 @@ const HostForm = ({ showToast }) => {
       if (questionAns.length !== 0) {
         handleSaveAns(dataId)
       } else {
+        isLoadingUpdate(false)
         navigate_aftersave()
       }
     }).catch((err) => console.log('err in save property', err))
@@ -103,7 +158,6 @@ const HostForm = ({ showToast }) => {
 
   // **********************************************_____________SAVE ANS________________*********************************
   const handleSaveAns = (dataId) => {
-    // postPropertyAnswer
     const jsonObj = {
       userId: loggedInUserId,
       property_id: dataId,
@@ -112,6 +166,7 @@ const HostForm = ({ showToast }) => {
     console.log('jsonObj', jsonObj)
     $Services.postPropertyAnswer(jsonObj).then((res) => {
       console.log('res of saving answer')
+      handleSaveAns(false)
       navigate_aftersave();
     }).catch((err) => console.log('error in saving answrr', err))
   }
@@ -131,23 +186,28 @@ const HostForm = ({ showToast }) => {
   const navigate_aftersave = () => {
     dispatch(fetchPropertyList());
     showToast('success', 'Data saved successsfully.');
-    navigate('/search');
+    setTimeout(()=>{
+      navigate('/search');
+    },1000)
   }
 
 
   const handleChange = (e, type) => {
     const { value, id } = e.target
     const stateUpdate = (type === 'property') ? setPropertyDetails : (type === 'owner') ? setPropertyOwnerDetails : setPropertyCaretakerDetails
-    handleUpdateState(stateUpdate, id, value)
+    handleUpdateState(stateUpdate, id, value, `${id}Err`)
   }
 
-  const handleUpdateState = (setState, key, value) => {
+  const handleUpdateState = (setState, key, value, errKey) => {
     setState(prev => ({
       ...prev, [key]: value
     }))
+    if (errKey) {
+      setState(prev => ({
+        ...prev, [errKey]: ''
+      }))
+    }
   }
-
-
   // **********************************************_____________HANDLE RADIO QUESTIONS________________*********************************
   const handleRadioQuestion = (e, question_id) => {
     console.log('handleRadioQuestion', e.target.id, question_id)
@@ -158,7 +218,6 @@ const HostForm = ({ showToast }) => {
       const newObj = createQuestionAnsJson({ question_id, answer_id: e.target.id })
       console.log('jsonObj', newObj)
       setQuestionAns(prev => [...prev, newObj]);
-
     } else {
       setQuestionAns((prev) => {
         let newArray = [...prev]
@@ -173,29 +232,49 @@ const HostForm = ({ showToast }) => {
     setSelectedFile(e.target.files[0]);
   }
 
+  // ******************************CONSOLE_LOG****************************************
 
+  console.log('propertyOwnerDetails', propertyOwnerDetails)
   console.log('selectedFileselectedFile', selectedFile)
+  console.log('propertyDetails', propertyDetails)
   console.log('questionAnsquestionAns', questionAns)
+  // ******************************CONSOLE_LOG****************************************
   return (
     <>
       <form onSubmit={handleSave}>
         <div className='border-1 p-2 rounded-lg mt-12'>
           <h6 className='font-bold text-1xl sm:text-1xl mb-4'>Basic Details</h6>
-          <InputBox placeholder='Enter Property Name' allScreen="true" id='name' onChange={(e) => handleChange(e, 'property')} />
+          <InputBox placeholder='Enter Property Name' allScreen="true" id='name'
+            value={propertyDetails.name}
+            error={propertyDetails.nameErr}
+            onChange={(e) => handleChange(e, 'property')}
+          />
           <div className="flex">
-            <InputBox placeholder='Property Owner Name' name='name' id='name' onChange={(e) => handleChange(e, 'owner')} />
+            <InputBox placeholder='Property Owner Name' name='name' id='name'
+              value={propertyOwnerDetails.name}
+              error={propertyOwnerDetails.nameErr}
+              onChange={(e) => handleChange(e, 'owner')} />
             <InputBox placeholder='Property Owner Email' name='email' id='email' onChange={(e) => handleChange(e, 'owner')} />
           </div>
           <div className="flex">
-            <InputBox placeholder='Care taker  name' id='name' onChange={(e) => handleChange(e, 'caretaker')} />
-            <InputBox placeholder='Care taker email' id='email' onChange={(e) => handleChange(e, 'caretaker')} />
+            <InputBox placeholder='Care taker name' id='name'
+              value={propertyCatetakerDetails.name}
+              error={propertyCatetakerDetails.nameErr}
+              onChange={(e) => handleChange(e, 'caretaker')} />
+            <InputBox placeholder='Care taker email' id='email'
+              onChange={(e) => handleChange(e, 'caretaker')} />
           </div>
           <div className="flex">
-            <InputBox placeholder='Property Owner mobile' name='mobile' id='mobile' onChange={(e) => handleChange(e, 'owner')} />
-            <InputBox placeholder='Care taker mobile' id='mobile' onChange={(e) => handleChange(e, 'caretaker')} />
+            <InputBox placeholder='Property Owner mobile' name='mobile' id='mobile'
+              onChange={(e) => handleChange(e, 'owner')}
+              error={propertyOwnerDetails.mobileErr}
+
+            />
+            <InputBox placeholder='Care taker mobile' id='mobile'
+              error={propertyCatetakerDetails.mobileErr}
+              onChange={(e) => handleChange(e, 'caretaker')} />
           </div>
-          {/* <InputBox placeholder='Enter Location' allScreen="true" id='location' value={location} onChange={(e)=>setLocation(e.target.value)} /> */}
-          <AddressCom setAddressInfo={setAddressInfo} />
+          <AddressCom setAddressInfo={setAddressInfo} error={addressErr} setError={setAddressErr} />
         </div>
         <div className='border-1 p-2 rounded-lg mt-2'>
           <h6 className='font-bold text-1xl sm:text-1xl border-b mb-4 pb-2'>Services</h6>
@@ -238,8 +317,8 @@ const HostForm = ({ showToast }) => {
           )}
         </div>
         <div className="flex justify-between">
-          <ButtonCom label='Cancel' />
-          <ButtonCom label='Save' />
+          <ButtonCom label='Cancel' onClick={() => window.history.back()} />
+          <ButtonCom label='Save' onClick={() => handleSave()} />
         </div>
       </form>
     </>

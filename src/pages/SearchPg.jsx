@@ -39,7 +39,6 @@ const SearchPg = () => {
     return (
         <div className="py-20 container mx-auto px-4 sm:px-6 lg:px-8 shadow">
             <h5 className='font-bold text-2xl sm:text-3xl border-b mb-4 pb-2'>Find Your Pg</h5>
-            {/* <input type="text" className="w-full border p-2 rounded-lg mb-4" placeholder="Search location" /> */}
             <InputBox placeholder='Search location' allScreen="true" />
             <div className="flex">
                 <SelectDropdown
@@ -81,13 +80,20 @@ const SearchPg = () => {
 
                         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                             {currentItems?.map((item, index) => {
+                                const imgUrl = item?.image?.url
                                 console.log('item', item)
                                 return (<>
                                     <div key={index} className="group relative shadow-md cursor-pointer" onClick={() => navigateRoute(item)}>
-                                        <div className="w-full overflow-hidden  bg-gray-200  relative group-hover:opacity-75">
-                                            {/* <img src="https://via.placeholder.com/500/" alt={`Image-${index}`} /> */}
-                                            <img src={item?.image?.url} alt={`${item?.image} `} />
+                                        <div className="w-full overflow-hidden bg-gray-200 relative group-hover:opacity-75">
+                                            {imgUrl ? <>
+                                                <img src={imgUrl} alt={`${item?.image}`} style={{ width: '100%', height: 'auto' }} />
+                                            </> :
+                                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '200px', }}>
+                                                    Image Unavailable
+                                                </div>
+                                            }
                                         </div>
+
                                         <div className="mt-2 flex justify-between p-2">
                                             <div>
                                                 <h3 className="text-sm text-gray-900"> {item.name} </h3>

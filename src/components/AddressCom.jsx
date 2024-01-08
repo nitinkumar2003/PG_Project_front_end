@@ -2,9 +2,9 @@ import React, { useState, useRef } from 'react'
 import { googleApiKey } from '../utilities/Constant'
 
 const addressInfoObj = () => {
-    return { addressLineOne: "", addressLine2: "", zipCode: "", city: "", state: "", country: "", county: "",long:"",lat:"", streetAddress: '' }
+    return { addressLineOne: "", addressLine2: "", zipCode: "", city: "", state: "", country: "", county: "", long: "", lat: "", streetAddress: '' }
 }
-export const AddressCom = ({ setAddressInfo }) => {
+export const AddressCom = ({ setAddressInfo, error, setError }) => {
 
     const [addressInfo, setaddressInfo] = useState({ ...addressInfoObj() })
 
@@ -31,8 +31,9 @@ export const AddressCom = ({ setAddressInfo }) => {
         const place = autocomplete.getPlace();
         const lat = place?.geometry?.location?.lat();
         const long = place?.geometry?.location?.lng();
-        console.log('longlong',long,lat)
-        setAddressfun(lat,long,extractAddress(place));
+        console.log('longlong', long, lat)
+        setError(false)
+        setAddressfun(lat, long, extractAddress(place));
     };
 
     const extractAddress = (place) => {
@@ -66,7 +67,7 @@ export const AddressCom = ({ setAddressInfo }) => {
         return address;
     };
 
-    const setAddressfun = (lat,long,address) => {
+    const setAddressfun = (lat, long, address) => {
         const addressInfoDet = {
             city: address?.city,
             county: address?.county,
@@ -74,13 +75,14 @@ export const AddressCom = ({ setAddressInfo }) => {
             zipcode: address?.zip,
             country: address?.country,
             lat: lat,
-            long:long,
+            long: long,
             addressLine2: "",
             addressLineOne: inputSearchaddressRef?.current?.value,
             //   createdBy: loggedInId,
             streetAddress: inputSearchaddressRef?.current?.value.substring(0, inputSearchaddressRef?.current?.value.indexOf(",")),
             addressTypeId: 1
         };
+        setError(false)
         setAddressInfo(addressInfoDet)
         setaddressInfo({ ...addressInfoDet });
     };
@@ -118,6 +120,7 @@ export const AddressCom = ({ setAddressInfo }) => {
                     defaultValue={addressInfo.addressLine1}
                     onChange={() => onhandleChangeAddress()} ref={inputSearchaddressRef}
                 />
+                {error && (<div className="text-red-500 text-xs mt-1">Address can not be blank</div>)}
             </div>
         </>
     )

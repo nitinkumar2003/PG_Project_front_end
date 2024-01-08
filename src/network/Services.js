@@ -1,6 +1,8 @@
 import axios from "axios";
 import { $Api_Url } from "./Url";
 import { json } from "react-router-dom";
+import konsole from "./Konsole";
+import { $Constant } from "../utilities/Constant";
 
 axios.defaults.baseURL = 'http://localhost:4001/';
 axios.defaults.headers.common['Content-Type'] = `application/json`
@@ -8,7 +10,17 @@ axios.defaults.headers.common['Content-Type'] = `application/json`
 
 
 const invokeApi = async (method, url, data = null) => {
+  konsole.log("method : ", method)
+  konsole.log("URL : ", url)
+  konsole.log("data : ", data)
   try {
+    let token = sessionStorage.getItem("authToken");
+    // if(isCheckNullUndefine)
+    if ($Constant.isCheckNullUndefine(token)) {
+      const tokenWithoutQuotes = token.replace(/^"(.*)"$/, '$1');
+      konsole.log("token : ", tokenWithoutQuotes.token)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${tokenWithoutQuotes}`;
+    }
     const response = await axios({ method, url, data });
     return response.data;
   } catch (error) {
