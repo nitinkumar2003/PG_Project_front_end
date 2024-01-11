@@ -60,7 +60,8 @@ function Header({ showToast }) {
                     <div className="flex items-center">
                       <div className="flex-shrink-0 text-white">
                         {/* <img className="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" /> */}
-                        NK
+                        {/* NK */}
+                        <img src='/icon/NKJ.jpeg'  className='w-8 h-8' />
                       </div>
                     </div>
                     <div className="hidden md:block">
