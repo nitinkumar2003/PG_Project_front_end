@@ -6,7 +6,7 @@ import { ArrowPathIcon, ChartPieIcon, CursorArrowRaysIcon, FingerPrintIcon, Squa
 import Select from 'react-select';
 import './InputComponent.css'
 
-export const SelectDropdown = ({ options, value,disable, onChange, label, id }) => {
+export const SelectDropdown = ({ options, value, disable, onChange, label, id }) => {
     return (
         <select
             className="block m-1 appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
@@ -15,7 +15,7 @@ export const SelectDropdown = ({ options, value,disable, onChange, label, id }) 
             id={id}
         >
             <option value=''>{label}</option>
-            {options.map((option,index)  => (
+            {options.map((option, index) => (
                 <option key={index} value={option.value}>
                     {option.label}
                 </option>
@@ -24,13 +24,13 @@ export const SelectDropdown = ({ options, value,disable, onChange, label, id }) 
     );
 };
 
-export const InputBox = ({onChange,handleBlur,id,disable,value, placeholder, allScreen = false,error }) => {
+export const InputBox = ({ onChange, handleBlur, id, disable, value, placeholder, allScreen = false, error }) => {
     return <>
         <div className={`${allScreen ? '' : 'w-1/2'} m-2 relative`}>
             {/* <input type="text" id="username" className="w-full border-b border-gray-300 rounded-md px-3 py-2" placeholder={placeholder} /> */}
             <input
                 id={id}
-                className="border-b  w-full border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-900"
+                className={`${(error) ? "focus:border-red-900 border-red-900" : "focus:border-blue-900 border-gray-300 "}  border-b-2  w-full px-3 py-2 focus:outline-none `}
                 type="text"
                 placeholder={placeholder}
                 onChange={onChange}
@@ -46,13 +46,13 @@ export const InputBox = ({onChange,handleBlur,id,disable,value, placeholder, all
 export const InputCheckbox = ({ label, name, id, checked, onChange }) => {
     return (
         <>
-            <input type="radio" className="mt-2 mb-1 ms-2 mr-2 h-6 w-6" onChange={onChange} id={id}  name={name} />
+            <input type="radio" className="mt-2 mb-1 ms-2 mr-2 h-6 w-6" onChange={onChange} id={id} name={name} />
             <label className='text-md'>{label}</label>
         </>
     )
 }
 
-export const MultiSelectDropDown = ({ placeholder, options,onChange,value=[], isMulti = false, allScreen = false }) => {
+export const MultiSelectDropDown = ({ placeholder, options, onChange, value = [], isMulti = false, allScreen = false }) => {
     return (
         <>
             <div className={`${allScreen ? '' : 'w-1/2 ml-2'} mb-4`}>

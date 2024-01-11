@@ -11,7 +11,7 @@ const SelectPg = () => {
     const [selectedData, setSelectedData] = useState(null)
     const [address, setAddress] = useState('')
     const [answerList, setAnswerList] = useState([])
-    const [uplodedImage,setUploadedImage]=useState('')
+    const [uplodedImage, setUploadedImage] = useState('')
     const propertyDetails = selectedData?.propertyType;
 
     useEffect(() => {
@@ -57,14 +57,15 @@ const SelectPg = () => {
         </div>
     }
 
-    konsole.log('selectedData',address, selectedData)
+    konsole.log('selectedData', address, selectedData)
     return (
         <>
             <div className="m-16 container mx-auto">
                 <div className='container fixed bg-white z-10 mb-5 '>
-                    <h6 className='font-bold sm:text-3xl'>
-                        <img src="/images/previous.png" className='h-5 w-5 inline-block align-middle me-2 cursor-pointer' onClick={() => window.history.back()} />
-                        {selectedData?.name}</h6>
+                    <div className='flex flex-wrap items-center'>
+                        <img src="/images/previous.png" className='h-5 ms-1 w-5 cursor-pointer' onClick={() => window.history.back()} />
+                        <h6 className='font-bold sm:text-3xl ms-1'> {selectedData?.name}</h6>
+                    </div>
                     <h2 className='border-b mb-2'>{selectedData?.address?.addressLineOne} </h2>
                 </div>
             </div>
@@ -72,14 +73,16 @@ const SelectPg = () => {
                 <div className="flex flex-col lg:flex-row items-center lg:items-stretch h-full ">
                     {/* --------------------------------Image Part--------------------------------------------------------------------- */}
                     <div className="lg:w-1/2">
-                        <img
-                            // src="https://placekitten.com/800/600"
-                            src={uplodedImage?.url}
-                            // alt={uplodedImage}
-                            alt="Image not found"
-                            className="object-cover w-full h-full rounded-l-lg"
-                        />
+                        {uplodedImage?.url ? <>
+                            <img src={uplodedImage.url} alt="Image not found" className="object-cover w-full h-full rounded-l-lg" />
+                        </>
+                            : <>
+                                <div className='bg-gray-800' style={{ display: 'flex', color: "white", justifyContent: 'center', alignItems: 'center', width: '100%', height: '75vh', borderRadius: '8px' }}>
+                                    Image Unavailable
+                                </div>
+                            </>}
                     </div>
+
 
                     {/*----------------------------------------------------------------- Box Part------------------------------------ */}
                     <div className="lg:w-1/2 w-full  bg-gray-200 p-8">
