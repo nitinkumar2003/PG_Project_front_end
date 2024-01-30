@@ -51,8 +51,8 @@ function Header({ showToast }) {
   return (
     <>
       <div className="min-h-full">
-        <div className="fixed top-0 w-full bg-red-500 z-50">
-          <Disclosure as="nav" className="bg-gray-800">
+        <div className="fixed top-0 w-full z-50">
+          <Disclosure as="nav" className="bg-black">
             {({ open }) => (
               <>
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

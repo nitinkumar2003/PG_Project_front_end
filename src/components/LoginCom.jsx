@@ -7,7 +7,8 @@ import $Services from '../network/Services'
 import konsole from '../network/Konsole'
 import useApiCallHook from '../hooks/userApiCall'
 import useSessionStorage from '../hooks/useSessionStorage'
-import useCustomDispatchHook from '../hooks/useCustomDispatchHook'
+import useCustomDispatchHook from '../hooks/useCustomDispatchHook';
+import { warningMsg } from '../utilities/utilities'
 
 const LoginCom = ({ showToast }) => {
     const {isLoginOrNotDispatch} = useCustomDispatchHook()
@@ -39,7 +40,7 @@ const LoginCom = ({ showToast }) => {
             handleUiActions(actionOfLoginForm[0])
         }).catch((err) => {
             konsole.log('err in user login', err.response)
-            handleChange('validateErr', 'Invalie Email Or Password')
+            handleChange('validateErr',warningMsg?._login_Email_Password)
         })
     }
     const handleForgot = (e) => {
@@ -59,7 +60,7 @@ const LoginCom = ({ showToast }) => {
                         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
                         {/* <span className='text-red-600'>{loggedInDetails.validateErr}</span */}
                         <InputBox placeholder='Enter Your Email' id='email' allScreen="true" value={loggedInDetails.email} onChange={(e) => handleChange(e.target.id, e.target.value)} />
-                        <InputBox placeholder='Enter Your Pasword' id='password' allScreen="true" value={loggedInDetails.password} error={loggedInDetails.validateErr} onChange={(e) => handleChange(e.target.id, e.target.value)} />
+                        <InputBox placeholder='Enter Your Pasword' type='password' id='password' allScreen="true" value={loggedInDetails.password} error={loggedInDetails.validateErr} onChange={(e) => handleChange(e.target.id, e.target.value)} />
 
                         <div className="text-right m-0">
                             <a href="#" className="text-indigo-600 text-sm hover:underline" onClick={() => handleUiActions(actionOfLoginForm[3])}>Forgot Password?</a>

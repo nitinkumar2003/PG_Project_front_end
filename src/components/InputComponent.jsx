@@ -24,14 +24,14 @@ export const SelectDropdown = ({ options, value, disable, onChange, label, id })
     );
 };
 
-export const InputBox = ({ onChange, handleBlur, id, disable, value, placeholder, allScreen = false, error }) => {
+export const InputBox = ({ onChange, handleBlur, id, disable, value, placeholder, allScreen = false,type='text', error }) => {
     return <>
         <div className={`${allScreen ? '' : 'w-1/2'} m-2 relative`}>
             {/* <input type="text" id="username" className="w-full border-b border-gray-300 rounded-md px-3 py-2" placeholder={placeholder} /> */}
             <input
                 id={id}
                 className={`${(error) ? "focus:border-red-900 border-red-900" : "focus:border-blue-900 border-gray-300 "}  border-b-2  w-full px-3 py-2 focus:outline-none `}
-                type="text"
+                type={type}
                 placeholder={placeholder}
                 onChange={onChange}
                 onBlur={handleBlur}

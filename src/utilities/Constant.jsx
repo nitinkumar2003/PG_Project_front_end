@@ -37,8 +37,6 @@ export const $Constant = {
     }
     return false;
   },
-
-
 }
 
 export const createQuestionAnsJson = ({ question_id, answer_id }) => {
