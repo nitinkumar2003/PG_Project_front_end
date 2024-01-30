@@ -11,9 +11,20 @@ export const warningMsg = {
     _propertyCaretakerName_Err: "Caretaker name can not be blank,",
     _propertyAddress_Err: "Address can not be blank",
     _propertyOwnerMobile_Err:"Owner mobile can not be blank.",
-    _propertyCaratakerMobile_Err:"Care taker mobile can not be blank.",
-  
+    _propertyCaratakerMobile_Err:"Care taker mobile can not be blank.", 
     
+    _login_Email_Password:'Invalie Email Or Password',
+    _name_Err:"Name cannot be blank.",
+    _email_Err:"Email cannot be blank.",
+    _password_Err:"Password cannot be blank.",
+    _email_Validate_Err:"Please enter valid Email.",
+    _password_Validate_Err:"Please enter valid Password.",
+    _account_Created_Msg:'Account created successfully.',
+    _otp_Message:"Otp sent successfully.",
+    _account_Activate_Message:"Account Activate successfully.",
+    _password_update_Msg:"Password updated successfully."
 }
+
+
 
 

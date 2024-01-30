@@ -3,7 +3,7 @@ import ButtonCom from '../components/ButtonCom';
 import { useLoginFormStatus, useCustomDispatch } from '../hooks/useLoginFormStatus';
 import $Services from '../network/Services';
 import useLoading from '../hooks/useLoading';
-import { actionOfLoginForm } from '../utilities/utilities';
+import { actionOfLoginForm, warningMsg } from '../utilities/utilities';
 import konsole from '../network/Konsole';
 import { InputBox } from '../components/InputComponent';
 import { $Constant } from '../utilities/Constant';
@@ -28,7 +28,7 @@ const OtpCom = ({ showToast }) => {
     isLoadingUpdate(true)
     $Services.sentOtp({ email: userEmail }).then((res) => {
       console.log('res of sent otp', res)
-      showToast('success', 'Otp Sent successfully.')
+      showToast('success',warningMsg?._otp_Message)
       isLoadingUpdate(false)
     }).catch((err) => {
       isLoadingUpdate(false)
@@ -48,7 +48,7 @@ const OtpCom = ({ showToast }) => {
       if (refrencePageloginSlice == 'ForgotPassword') {
         setShowUpdatePassword(true)
       } else {
-        showToast('success', 'Account Activate successfully.')
+        showToast('success',warningMsg?._account_Activate_Message)
         customDispatch(actionOfLoginForm[0])
       }
       isLoadingUpdate(false)
@@ -79,7 +79,7 @@ const OtpCom = ({ showToast }) => {
     const { id, value } = e.target
     handleUpdatePassword(id, value)
     if (!$Constant.isPasswordRegex(value)) {
-      handleUpdatePassword('passwordErr', 'Please emter valid password')
+      handleUpdatePassword('passwordErr',warningMsg?._password_Validate_Err)
     } else {
       handleUpdatePassword('passwordErr', '')
     }
@@ -94,7 +94,7 @@ const OtpCom = ({ showToast }) => {
 
   const updatePswd = () => {
     if ($Constant.isCheckUndefineNullBlank(passwordDetails.password)) {
-      handleUpdatePassword('passwordErr', ' Password cannot be blank')
+      handleUpdatePassword('passwordErr',warningMsg?._password_Err)
     }
     const jsonObj = {
       password: passwordDetails.password,
@@ -102,7 +102,7 @@ const OtpCom = ({ showToast }) => {
     }
     $Services.passwordForgot(jsonObj).then((res) => {
       console.log('res of  verify otp', res)
-      showToast('success', 'Password updated successfully.')
+      showToast('success',warningMsg?._password_update_Msg)
       customDispatch(actionOfLoginForm[0])
       isLoadingUpdate(false)
     }).catch((err) => {

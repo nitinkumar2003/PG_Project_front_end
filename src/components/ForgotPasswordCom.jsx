@@ -6,7 +6,8 @@ import { actionOfLoginForm } from '../utilities/utilities'
 import $Services from '../network/Services'
 import konsole from '../network/Konsole'
 import { $Constant } from '../utilities/Constant'
-import useLoading from '../hooks/useLoading'
+import useLoading from '../hooks/useLoading';
+import { warningMsg } from '../utilities/utilities'
 
 const ForgotPasswordCom = ({ showToast }) => {
   const customDispatch = useCustomDispatch()
@@ -25,7 +26,7 @@ const ForgotPasswordCom = ({ showToast }) => {
     const { id, value } = e.target
     handleForgotDetails(id, value)
     if (!$Constant.isEmailRegex(value)) {
-      handleForgotDetails('emailErr', 'Please enter valid Email')
+      handleForgotDetails('emailErr',warningMsg?._email_Validate_Err)
     } else {
       handleForgotDetails('emailErr', '')
     }
@@ -40,7 +41,7 @@ const ForgotPasswordCom = ({ showToast }) => {
     if (forgotDetails.emailErr) return true
 
     if ($Constant.isCheckUndefineNullBlank(forgotDetails.email)) {
-      handleForgotDetails('emailErr', ' Email cannot be blank')
+      handleForgotDetails('emailErr',warningMsg?._email_Err)
       return true;
     }
     return false

@@ -8,6 +8,7 @@ import { $Constant } from '../utilities/Constant'
 import OtpCom from '../pages/Otp'
 import axios from 'axios'
 import useLoading from '../hooks/useLoading'
+import { warningMsg } from '../utilities/utilities'
 
 const SignUpCom = ({ showToast }) => {
     const customDispatch = useCustomDispatch()
@@ -42,15 +43,15 @@ const SignUpCom = ({ showToast }) => {
             return true
         }
         if ($Constant.isCheckUndefineNullBlank(name)) {
-            handleSignUpDetails('nameErr', ' Name cannot be blank')
+            handleSignUpDetails('nameErr',warningMsg?._name_Err)
             return true;
         }
         if ($Constant.isCheckUndefineNullBlank(email)) {
-            handleSignUpDetails('emailErr', ' Email cannot be blank')
+            handleSignUpDetails('emailErr',warningMsg?._email_Err)
             return true;
         }
         if ($Constant.isCheckUndefineNullBlank(password)) {
-            handleSignUpDetails('passwordErr', ' Password cannot be blank')
+            handleSignUpDetails('passwordErr',warningMsg?._password_Err)
             return true;
         }
         return false
@@ -58,10 +59,10 @@ const SignUpCom = ({ showToast }) => {
     function validateEmail(id, value) {
         switch (id) {
             case 'email':
-                (!$Constant.isEmailRegex(value)) ? handleSignUpDetails('emailErr', 'Please enter valid Email') : handleSignUpDetails('emailErr', '')
+                (!$Constant.isEmailRegex(value)) ? handleSignUpDetails('emailErr',warningMsg?._email_Validate_Err) : handleSignUpDetails('emailErr', '')
                 break;
             case 'password':
-                (!$Constant.isPasswordRegex(value)) ? handleSignUpDetails('passwordErr', 'Please emter valid password') : handleSignUpDetails('passwordErr', '')
+                (!$Constant.isPasswordRegex(value)) ? handleSignUpDetails('passwordErr',warningMsg?._password_Validate_Err) : handleSignUpDetails('passwordErr', '')
                 break;
             case 'name': handleSignUpDetails('nameErr', '')
 
@@ -80,7 +81,7 @@ const SignUpCom = ({ showToast }) => {
         apiCallHook.callSignUpApi(signUpDetails)
             .then((res) => {
                 isLoadingUpdate(false)
-                showToast('success', 'Account created successsfully.')
+                showToast('success',warningMsg?._account_Created_Msg)
                 console.log('Response:', res);
                 if (res?.payload.status == 200) {
                     const userEmail = res.payload.user.email
@@ -115,6 +116,7 @@ const SignUpCom = ({ showToast }) => {
                             id='password'
                             placeholder='Enter Your Pasword'
                             allScreen="true"
+                            type='password'
                             onChange={handleChange}
                             error={signUpDetails.passwordErr}
                         />

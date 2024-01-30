@@ -5,6 +5,7 @@ import konsole from "./Konsole";
 import { $Constant } from "../utilities/Constant";
 
 axios.defaults.baseURL = 'http://localhost:4001/';
+// axios.defaults.baseURL = 'https://pgprojectbackend-production.up.railway.app/';
 axios.defaults.headers.common['Content-Type'] = `application/json`
 // axios.defaults.headers.common['Content-Type'] = `multipart/form-data`
 

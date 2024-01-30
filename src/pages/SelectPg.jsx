@@ -59,11 +59,12 @@ const SelectPg = () => {
 
     konsole.log('selectedData', address, selectedData)
     return (
+        
         <>
             <div className="m-16 container mx-auto">
                 <div className='container fixed bg-white z-10 mb-5 '>
                     <div className='flex flex-wrap items-center'>
-                        <img src="/images/previous.png" className='h-5 ms-1 w-5 cursor-pointer' onClick={() => window.history.back()} />
+                        <img src="/icon/arrow-left.png" className='h-5 mt-1 ms-1 w-5 cursor-pointer' onClick={() => window.history.back()} />
                         <h6 className='font-bold sm:text-3xl ms-1'> {selectedData?.name}</h6>
                     </div>
                     <h2 className='border-b mb-2'>{selectedData?.address?.addressLineOne} </h2>

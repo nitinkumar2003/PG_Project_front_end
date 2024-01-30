@@ -38,45 +38,45 @@ const SearchPg = () => {
 
     return (
         <div className="py-20 container mx-auto px-4 sm:px-6 lg:px-8 shadow">
-            <h5 className='font-bold text-2xl sm:text-3xl border-b mb-4 pb-2'>Find Your Pg</h5>
-            <InputBox placeholder='Search location' allScreen="true" />
-            <div className="flex">
-                <SelectDropdown
-                    options={homeTypeList}
-                    value={filterPgInfo.homeType}
-                    handleSelect={handleSelect}
-                    label="Select Home"
-                    id='priceRange'
-                />
-                <SelectDropdown
-                    options={livingTypeList}
-                    value={filterPgInfo.livingType}
-                    handleSelect={handleSelect}
-                    label="Select Living"
-                    id='livingType'
-                />
-                <SelectDropdown
-                    options={sharingTypeList}
-                    value={filterPgInfo.sharingType}
-                    handleSelect={handleSelect}
-                    label="Select Sharing"
-                    id='sharingType'
-                />
-                <SelectDropdown
-                    options={priceRangeList}
-                    value={filterPgInfo.priceRange}
-                    handleSelect={handleSelect}
-                    label="Select Price"
-                    id='priceRange'
-                />
-            </div>
+
             <div>
 
                 {/*----------------------------------------------------  show list component ------------------------------------------------------------------------------ */}
                 <div className="bg-white">
                     <div className="mx-auto max-w-2xl px-1 py-4 sm:px-3 sm:py-6 lg:max-w-7xl lg:px-2">
+                        <h5 className='font-bold text-2xl sm:text-3xl border-b mb-4 pb-2'>Find Your Pg</h5>
+                        <InputBox placeholder='Search location' allScreen="true" />
+                        <div className="flex">
+                            <SelectDropdown
+                                options={homeTypeList}
+                                value={filterPgInfo.homeType}
+                                handleSelect={handleSelect}
+                                label="Select Home"
+                                id='priceRange'
+                            />
+                            <SelectDropdown
+                                options={livingTypeList}
+                                value={filterPgInfo.livingType}
+                                handleSelect={handleSelect}
+                                label="Select Living"
+                                id='livingType'
+                            />
+                            <SelectDropdown
+                                options={sharingTypeList}
+                                value={filterPgInfo.sharingType}
+                                handleSelect={handleSelect}
+                                label="Select Sharing"
+                                id='sharingType'
+                            />
+                            <SelectDropdown
+                                options={priceRangeList}
+                                value={filterPgInfo.priceRange}
+                                handleSelect={handleSelect}
+                                label="Select Price"
+                                id='priceRange'
+                            />
+                        </div>
                         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Property details </h2>
-                        <PaginationCom handlePageChange={handlePageChange} currentPage={currentPage} totalPages={totalPages} />
 
                         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                             {currentItems?.map((item, index) => {
@@ -105,7 +105,9 @@ const SearchPg = () => {
                                 </>)
                             })}
                         </div>
+
                     </div>
+                    <PaginationCom handlePageChange={handlePageChange} currentPage={currentPage} totalPages={totalPages} />
                 </div>
             </div>
         </div>
