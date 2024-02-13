@@ -51,92 +51,97 @@ const SelectPg = () => {
 
 
     const showRowData = (key, data) => {
-        return <div className="flex  ">
-            <p className="font-bold">{key}:</p>
+        return <div className="flex">
+            <span className="font-bold">{key}:</span>
             <p className='ps-4 pe-4'>{(data?.length > 0) ? data?.map(item => item?.label).join(', ') : "No available"}</p>
         </div>
     }
 
     konsole.log('selectedData', address, selectedData)
     return (
-        
+
         <>
-            <div className="m-16 container mx-auto">
-                <div className='container fixed bg-white z-10 mb-5 '>
-                    <div className='flex flex-wrap items-center'>
-                        <img src="/icon/arrow-left.png" className='h-5 mt-1 ms-1 w-5 cursor-pointer' onClick={() => window.history.back()} />
-                        <h6 className='font-bold sm:text-3xl ms-1'> {selectedData?.name}</h6>
+            <div className="mx-auto max-w-2xl px-1 py-4 sm:px-3 sm:py-6 lg:max-w-7xl lg:px-2">
+
+                <div className='container'>
+                    <div className="m-10 container mx-auto">
+                        <div className='container fixed bg-white z-10 mb-5'>
+                            <div className='flex flex-wrap items-center pt-4'>
+                                <img src="/icon/arrow-left.png" className='h-5 mt-1 ms-1 w-5 cursor-pointer' onClick={() => window.history.back()} />
+                                <h6 className='font-bold sm:text-3xl ms-1'> {selectedData?.name}</h6>
+                            </div>
+                            <h2 className=' mb-2'>{selectedData?.address?.addressLineOne} </h2>
+                        </div>
                     </div>
-                    <h2 className='border-b mb-2'>{selectedData?.address?.addressLineOne} </h2>
-                </div>
-            </div>
-            <div className="py-20 container mx-auto px-4 sm:px-6 lg:px-8 shadow">
-                <div className="flex flex-col lg:flex-row items-center lg:items-stretch h-full ">
-                    {/* --------------------------------Image Part--------------------------------------------------------------------- */}
-                    <div className="lg:w-1/2">
-                        {uplodedImage?.url ? <>
-                            <img src={uplodedImage.url} alt="Image not found" className="object-cover w-full h-full rounded-l-lg" />
-                        </>
-                            : <>
-                                <div className='bg-gray-800' style={{ display: 'flex', color: "white", justifyContent: 'center', alignItems: 'center', width: '100%', height: '75vh', borderRadius: '8px' }}>
-                                    Image Unavailable
+                    <div className="py-20 container mx-auto px-4 sm:px-6 lg:px-8 shadow">
+                        <div className="flex flex-col lg:flex-row items-center lg:items-stretch h-full ">
+                            {/* --------------------------------Image Part--------------------------------------------------------------------- */}
+                            <div className="lg:w-1/2">
+                                {uplodedImage?.url ? <>
+                                    <img src={uplodedImage.url} alt="Image not found" className="object-cover w-full h-full rounded-l-lg" />
+                                </>
+                                    : <>
+                                        <div className='bg-gray-800' style={{ display: 'flex', color: "white", justifyContent: 'center', alignItems: 'center', height: "100%", borderRadius: '8px' }}>
+                                            Image Unavailable
+                                        </div>
+                                    </>}
+                            </div>
+
+
+                            {/*----------------------------------------------------------------- Box Part------------------------------------ */}
+                            <div className="lg:w-1/2 w-full  bg-gray-200 p-2">
+                                {/*------------------------------------------------- owner details------------------------------------------------- */}
+                                <div className="w-full mb-2">
+                                    <CardOwnerNCaretaker heading="Owner Details" {...selectedData?.propertyOwner} />
                                 </div>
-                            </>}
-                    </div>
+                                {/*------------------------------------------------- Care taker details------------------------------------------------- */}
 
+                                <div className="w-full mt-2">
+                                    <CardOwnerNCaretaker heading="Care Taker Details" {...selectedData?.caretaker} />
+                                </div>
+                            </div>
 
-                    {/*----------------------------------------------------------------- Box Part------------------------------------ */}
-                    <div className="lg:w-1/2 w-full  bg-gray-200 p-8">
-                        {/*------------------------------------------------- owner details------------------------------------------------- */}
-                        <div className="w-full mb-4">
-                            <CardOwnerNCaretaker heading="Owner Details" {...selectedData?.propertyOwner} />
                         </div>
-                        {/*------------------------------------------------- Care taker details------------------------------------------------- */}
-
-                        <div className="w-full mt-4">
-                            <CardOwnerNCaretaker heading="Care Taker Details" {...selectedData?.caretaker} />
-                        </div>
-                    </div>
-
-                </div>
-                <div className="flex mt-5 flex-col lg:flex-row items-center lg:items-stretch ">
-                    {/*----------------------------------------------------------------- Box Part------------------------------------ */}
-                    <div className="lg:w-1/2 w-full  bg-gray-200 p-8">
-                        <div className="w-full mt-4">
-                            <div className="w-full bg-white shadow-md rounded-lg p-4">
-                                <h2 className="text-lg font-bold mb-2">Property Description</h2>
-                                <div className="grid bg-gray-200 rounded-lg ps-2">
-                                    {showRowData('Type', propertyDetails?.homeType)}
-                                    {showRowData('Living', propertyDetails?.livinType)}
-                                    {showRowData('Sharing', propertyDetails?.shareType)}
-                                    {showRowData('Price', propertyDetails?.priceType)}
-                                    <div className='ps-1'>
-                                        <ul className="list-none">
-                                            {answerList.map((item, index) => (<li key={index}>
-                                                <img src={`${(item.answer_id == 1) ? '/images/checkmark.png' : '/images/multiply.png'}`} alt='Correct' className='h-4 w-4 inline-block align-middle me-2' />
-                                                {item.question_label}
-                                            </li>))}
-                                        </ul>
+                        <div className="flex mt-5 flex-col lg:flex-row items-center lg:items-stretch ">
+                            {/*----------------------------------------------------------------- Box Part------------------------------------ */}
+                            <div className="lg:w-1/2 w-full  bg-gray-200 p-8">
+                                <div className="w-full mt-4">
+                                    <div className="w-full bg-white shadow-md rounded-lg p-4">
+                                        <h2 className="text-lg font-bold mb-2">Property Description</h2>
+                                        <div className="grid bg-gray-200 rounded-lg ps-2">
+                                            {showRowData('Type', propertyDetails?.homeType)}
+                                            {showRowData('Living', propertyDetails?.livinType)}
+                                            {showRowData('Sharing', propertyDetails?.shareType)}
+                                            {showRowData('Price', propertyDetails?.priceType)}
+                                            <div className='ps-1'>
+                                                <ul className="list-none">
+                                                    {answerList.map((item, index) => (<li key={index}>
+                                                        <img src={`${(item.answer_id == 1) ? '/images/checkmark.png' : '/images/multiply.png'}`} alt='Correct' className='h-4 w-4 inline-block align-middle me-2' />
+                                                        {item.question_label}
+                                                    </li>))}
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            {/* --------------------------------Image Part--------------------------------------------------------------------- */}
+                            <div className="lg:w-1/2">
+
+                                {(address) ?
+                                    <GoogleMapCom
+                                        lng={address?.long}
+                                        lat={address?.lat}
+                                        name={selectedData?.name}
+                                    /> :
+                                    <img
+                                        // src="https://placekitten.com/800/600"
+                                        alt="Google map not available."
+                                        className="object-cover w-full h-full rounded-r-lg"
+                                    />}
+
+                            </div>
                         </div>
-                    </div>
-                    {/* --------------------------------Image Part--------------------------------------------------------------------- */}
-                    <div className="lg:w-1/2">
-
-                        {(address) ?
-                            <GoogleMapCom
-                                lng={address?.long}
-                                lat={address?.lat}
-                                name={selectedData?.name}
-                            /> :
-                            <img
-                                // src="https://placekitten.com/800/600"
-                                alt="Google map not available."
-                                className="object-cover w-full h-full rounded-r-lg"
-                            />}
-
                     </div>
                 </div>
             </div>
@@ -150,9 +155,9 @@ const CardOwnerNCaretaker = ({ heading, name, email, mobile }) => {
     }
     return (
         <>
-            <div className="w-full h-48 bg-white shadow-md rounded-lg p-4">
+            <div className="w-full h-38 bg-white shadow-md rounded-lg p-2">
                 <h2 className="text-lg font-bold mb-2">{heading}</h2>
-                <div className="grid gap-4 bg-gray-200 rounded-lg ps-2">
+                <div className="grid bg-gray-200 rounded-lg ps-2">
                     {showRowData('Name', name)}
                     {showRowData('Email', email)}
                     {showRowData('Mobile', mobile)}

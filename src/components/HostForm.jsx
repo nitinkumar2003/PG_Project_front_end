@@ -103,6 +103,7 @@ const HostForm = ({ showToast }) => {
   const toSchrollEve = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
   // **********************************************_____________SAVE FUNCTION________________*********************************
   const handleSave = (e) => {
     console.log('addressInfoaddressInfoaddressInfo', Object.keys(addressInfo))
@@ -131,7 +132,7 @@ const HostForm = ({ showToast }) => {
     isLoadingUpdate(true)
     $Services.postPropertyBasic(jsonObj).then(async (res) => {
       console.log('resres', res)
-      const dataId = res.data._id
+      const dataId = res?.data._id
       const addresJson = { property_id: dataId, ...addressInfo };
       let result = await $Services.postAddress(addresJson);
 
@@ -141,7 +142,9 @@ const HostForm = ({ showToast }) => {
       formData.append('userId', loggedInUserId);
       formData.append('property_id', dataId);
 
+      if(selectedFile !=null){
       const images_result = await $Services.uploadImages(formData);
+      }
 
       // **********************************************______IMAGE_UPLOAD_______**************************************
       console.log('resultresult', result)
@@ -242,7 +245,7 @@ const HostForm = ({ showToast }) => {
   return (
     <>
       <form onSubmit={handleSave}>
-        <div className='border-1 p-2 rounded-lg mt-12'>
+        <div className='border-1 p-2 rounded-lg mt-16'>
           <h6 className='font-bold text-1xl sm:text-1xl mb-4'>Basic Details</h6>
           <InputBox placeholder='Enter Property Name' allScreen="true" id='name'
             value={propertyDetails.name}
