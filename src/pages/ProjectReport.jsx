@@ -52,7 +52,7 @@ const ProjectReport = () => {
               return <div className='mt-5 mb-2'>
               {
                 
-sIndex?.label &&  
+                sItem?.label &&  
                 <h1 style={subStyle} className='mb-2 mt-2'><span style={styleSpan}>{sIndex + 1}.</span> {sItem?.label}</h1>
               }
                 {sItem?.value && <p style={paragraphStyle}>{sItem?.value}</p>}
