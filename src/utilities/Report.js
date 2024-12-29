@@ -719,22 +719,7 @@ export const $report = [
         ]
 
     },
+    
 
 ]
 
-
-export const _report_Conclusion = [
-    {
-      "section": "Overview",
-      "content": "The Online PG Booking Project aims to revolutionize the way people search for, compare, and book paying guest accommodations by providing a seamless, user-friendly platform that bridges the gap between PG owners and tenants. With its comprehensive set of features, the platform simplifies the booking process, offers secure online payments, and ensures transparent communication between users and PG owners."
-    },
-    {
-      "section": "Technology and Feasibility",
-      "content": "Through the implementation of modern technologies like React.js, Node.js, and Express.js, the project achieves technical feasibility, scalability, and efficiency. The system is designed to provide a rich user experience while maintaining security, performance, and accessibility across various devices."
-    },
-    {
-      "section": "Benefits and Future Scope",
-      "content": "The Online PG Booking Project is not only a solution for students and working professionals seeking convenient accommodation but also offers PG owners a streamlined way to manage their properties, bookings, and payments. With added features such as payment gateway integration, rating and review systems, and advanced search filters, the platform ensures trust and transparency for both parties."
-    }
-  ];
-  

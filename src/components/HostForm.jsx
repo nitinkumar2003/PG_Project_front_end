@@ -167,8 +167,10 @@ const HostForm = ({ showToast }) => {
       quesAns: questionAns
     }
     console.log('jsonObj', jsonObj)
+    isLoadingUpdate(false)
     $Services.postPropertyAnswer(jsonObj).then((res) => {
-      console.log('res of saving answer')
+      console.log('res of saving answer');
+      
       handleSaveAns(false)
       navigate_aftersave();
     }).catch((err) => console.log('error in saving answrr', err))

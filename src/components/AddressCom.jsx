@@ -13,7 +13,7 @@ export const AddressCom = ({ setAddressInfo, error, setError }) => {
         initMapScript().then(() => initAutoComplete());
         if (inputSearchaddressRef.current.value !== "") {
             if (inputSearchaddressRef.current.value > 0) {
-                // showClearButton = true;
+                // showClearButton = true;P
             }
         }
     };
