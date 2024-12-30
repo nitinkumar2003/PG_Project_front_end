@@ -49,17 +49,17 @@ const ProjectReport = () => {
             </>}
 
             {item?.sub?.length > 0 && item?.sub?.map((sItem, sIndex) => {
-              return <div className='mt-5 mb-2'>
+              return <div className='mt-5 mb-2 ms-2'>
               {
                 
                 sItem?.label &&  
-                <h1 style={subStyle} className='mb-2 mt-2'><span style={styleSpan}>{sIndex + 1}.</span> {sItem?.label}</h1>
+                <h1 style={subStyle} className='mb-2 mt-2'><span style={styleSpan}> {index+1}.{sIndex + 1}.</span> {sItem?.label}</h1>
               }
                 {sItem?.value && <p style={paragraphStyle}>{sItem?.value}</p>}
 
                 {sItem?.sub_points?.length > 0 && sItem?.sub_points?.map((spItem, spIndex) => {
-                  return <div className='ms-4'>
-                    <p style={paragraphStyle}><span style={subPointStyle}>{spIndex + 1}. {spItem?.label} </span>{spItem?.value}</p>
+                  return <div className='ms-5'>
+                    <p style={paragraphStyle}><span style={subPointStyle}>{index+1}.{sIndex + 1}.{spIndex + 1}. {spItem?.label} </span>{spItem?.value}</p>
 
                     {spItem?.sub_points?.length > 0 && spItem?.sub_points?.map((spSItem,spIndex)=>{
                       return <p className='ms-5' style={paragraphStyle}>{spSItem?.value}</p>

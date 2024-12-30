@@ -719,7 +719,160 @@ export const $report = [
         ]
 
     },
-    
+    {
+      "label": "References",
+      "value": 'The references section includes all the sources, documents, articles, and tools used during    the development of the Online PG Booking Project. Below are some key references that were instrumental in the research and implementation of the project:',
+      "sub": [
+          {
+              'label': '',
+              'value': '',
+              "sub_points":[
+                {
+                  "label": "Books and Research Papers:",
+                  "value": "",
+                  "sub_points": [
+                    {
+                      "label": "",
+                      "value": "\"Node.js Design Patterns\" by Mario Casciaro, Packt Publishing (2014) – This book was useful for understanding the architecture and design patterns associated with Node.js applications."
+                    },
+                    {
+                      "label": "",
+                      "value": "\"Learning React: Functional Web Development with React and Redux\" by Alex Banks and Eve Porcello, O'Reilly Media (2017) – This book helped in understanding React.js concepts for building the frontend of the platform."
+                    },
+                    {
+                      "label": "",
+                      "value": "\"MongoDB: The Definitive Guide\" by Kristina Chodorow and Michael Dirolf, O'Reilly Media (2019) – Provided insights into the usage of MongoDB for the backend database."
+                    },
+                    {
+                      "label": "",
+                      "value": "\"Express.js: A Guide to Node.js Web Application Development\" by Brett McLaughlin, O'Reilly Media (2019) – This book served as a guide for implementing the backend using Express.js."
+                    }
+                  ]
+                },
+                {
+                  "label": "Official Documentation:",
+                  "value": "",
+                  "sub_points": [
+                    {
+                      "label": "",
+                      "value": "Node.js Official Documentation: https://nodejs.org/en/docs/ – Provided comprehensive information on Node.js features, API references, and best practices."
+                    },
+                    {
+                      "label": "",
+                      "value": "React.js Official Documentation: https://reactjs.org/docs/getting-started.html – Was helpful for understanding the components, hooks, and state management in React."
+                    },
+                    {
+                      "label": "",
+                      "value": "MongoDB Official Documentation: https://www.mongodb.com/docs/ – Provided valuable insights into working with MongoDB, schema design, and query optimization."
+                    },
+                    {
+                      "label": "",
+                      "value": "Express.js Official Documentation: https://expressjs.com/en/starter/installing.html – Served as a reference for setting up the Express.js framework and routing within the project."
+                    }
+                  ]
+                },
+                {
+                  "label": "Online Resources and Tutorials:",
+                  "value": "",
+                  "sub_points": [
+                    {
+                      "label": "",
+                      "value": "MDN Web Docs: https://developer.mozilla.org/en-US/ – A valuable resource for HTML, CSS, and JavaScript tutorials and reference materials."
+                    },
+                    {
+                      "label": "",
+                      "value": "W3Schools: https://www.w3schools.com/ – Provided simple examples and tutorials for web development technologies, including JavaScript, HTML, and CSS."
+                    },
+                    {
+                      "label": "",
+                      "value": "FreeCodeCamp: https://www.freecodecamp.org/ – Offered various tutorials and challenges that were useful for improving React and Node.js skills."
+                    },
+                    {
+                      "label": "",
+                      "value": "Stack Overflow: https://stackoverflow.com/ – A key platform for solving technical issues and troubleshooting problems faced during development."
+                    }
+                  ]
+                },
+                {
+                  "label": "Payment Gateway Documentation:",
+                  "value": "",
+                  "sub_points": [
+                    {
+                      "label": "",
+                      "value": "Razorpay API Documentation: https://razorpay.com/docs/ – Used for integrating the payment gateway into the platform."
+                    },
+                    {
+                      "label": "",
+                      "value": "Stripe API Documentation: https://stripe.com/docs – An additional reference for payment processing and online transactions."
+                    }
+                  ]
+                },
+                {
+                  "label": "Research Articles and Blogs:",
+                  "value": "",
+                  "sub_points": [
+                    {
+                      "label": "",
+                      "value": "\"Building a Full Stack Application with React and Node.js\" (Medium Article) – https://medium.com/ – Offered insights into creating full-stack applications with React and Node.js."
+                    },
+                    {
+                      "label": "",
+                      "value": "\"How to Build a Secure User Authentication System in Node.js\" (Auth0 Blog) – https://auth0.com/blog/ – Provided a step-by-step guide for implementing secure authentication and JWT-based login systems."
+                    }
+                  ]
+                },
+                {
+                  "label": "Web Hosting and Cloud Deployment:",
+                  "value": "",
+                  "sub_points": [
+                    {
+                      "label": "",
+                      "value": "Heroku Documentation: https://devcenter.heroku.com/ – Used for deploying the backend server and hosting the web application."
+                    },
+                    {
+                      "label": "",
+                      "value": "AWS (Amazon Web Services): https://aws.amazon.com/documentation/ – Provided cloud infrastructure services for deploying and hosting the platform."
+                    }
+                  ]
+                },
+                {
+                  "label": "UI/UX Design References:",
+                  "value": "",
+                  "sub_points": [
+                    {
+                      "label": "",
+                      "value": "Material-UI: https://mui.com/ – A design system that was used for the frontend UI, offering pre-designed components and themes."
+                    },
+                    {
+                      "label": "",
+                      "value": "Figma: https://www.figma.com/ – Used for designing the user interface and layout of the platform."
+                    }
+                  ]
+                },
+                {
+                  "label": "Project Management and Collaboration Tools:",
+                  "value": "",
+                  "sub_points": [
+                    {
+                      "label": "",
+                      "value": "GitHub: https://github.com/ – Used for version control and collaboration during the development of the project."
+                    },
+                    {
+                      "label": "",
+                      "value": "Trello: https://trello.com/ – Used for task management, tracking project progress, and setting milestones."
+                    },
+                    {
+                      "label": "",
+                      "value": "Slack: https://slack.com/ – For team communication and collaboration during development."
+                    }
+                  ]
+                }
+              ]
+              
+
+          }
+      ]
+  },
 
 ]
 
