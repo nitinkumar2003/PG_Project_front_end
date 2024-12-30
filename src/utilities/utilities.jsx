@@ -5,7 +5,7 @@ export const navigationLink = [
     { name: 'HOME', href: '/', current: true },
     { name: 'PG', href: '/search', current: false },
     { name: 'HOST PG', href: '/host', current: false },
-    {name:'Project Report',href:'/report',current:false}
+    // {name:'Project Report',href:'/report',current:false}
 ]
 
 export const warningMsg = {
